@@ -3,22 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <title>Learning Sheet</title>
+    <link href="assets/styles/index.css" type="text/css" rel="stylesheet">
 </head>
 <body>
+
 <div class="header">
     <div class="header-bar">
+        <div class="header-bar-content">
+            <img src="assets/images/icon_spirit.svg">
+        </div>
+        <div class="header-bar-content">
+            <h1>Welcome</h1>
+        </div>
     </div>
 </div>
+
 <div class="content">
-    <div class="icons-bar">
-        <a href="sheet.html"><p>Learning sheet</p></a>
+
+    <div class="power-grid-container">
+        <div class="power-description">
+            <img src="assets/images/icon_html_and_css.svg">
+            <p>CSS</p>
+        </div>
+        <div class="power-description">
+            <img src="assets/images/icon_javascript.svg">
+            <p>JS</p>
+        </div>
+        <div class="power-description">
+            <img src="assets/images/icon_node_js.svg">
+            <p>Node</p>
+        </div>
     </div>
-    <div class="content-showcase"></div>
+
+    <div class="content-showcase">
+        <div class="content-showcase-offset"></div>
+        <div class="content-showcase-grid">
+
+            <div class="content-showcase-body-template" style="display: none">
+                <p class="content-showcase-body-header"></p>
+            </div>
+
+            <div class="content-showcase-body-info-template" style="display: none">
+                <p class="content-showcase-body-info-paragraph"></p>
+                <code class="content-showcase-body-info-snippet"></code>
+            </div>
+
+        </div>
+        <div class="content-showcase-offset"></div>
+    </div>
 </div>
+
 <div class="footer">
     <div class="footer-content">
 
     </div>
 </div>
+
+<script src="assets/scripts/index_script.js"></script>
 </body>
 </html>
