@@ -1,0 +1,38 @@
+#skills {
+    position: relative;
+    display: table;
+    border-spacing: 80px;
+    border-collapse: separate;
+    width: 100%;
+    height: 500px;
+    background-color: white;
+}
+
+
+.skill_container {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.skill_header {
+    width: 100%;
+    text-align: center;
+    margin: 20px 0;
+    color: #EF4836;
+    font-size: 24px;
+    font-family: 'Space Mono', monospace;
+}
+
+.skill_description {
+    text-align: center;
+    color: darkslategray;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+}
+
+.skill_highlight {
+    color: teal;
+    font-weight: 700;
+}

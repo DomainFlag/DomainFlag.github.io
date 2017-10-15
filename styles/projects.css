@@ -1,0 +1,158 @@
+#projects {
+    position: relative;
+    top: -500px;
+    left: 0;
+    margin-bottom: -500px;
+    height: 2300px;
+    width: 100%;
+    background-color: #E29470;
+    z-index: 0;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 600px;
+}
+
+.row:first-of-type {
+    height: 500px !important;
+    background: url("./../assets/images/projects/background.jpg") no-repeat 60%;
+}
+
+.about_me {
+    position: relative;
+    top: 10%;
+    text-align: center;
+    width: 28%;
+}
+
+.about_me_image {
+    width: 125px;
+    height: auto;
+}
+
+.text_about_header {
+    margin: 5px 0;
+    font-size: 28px;
+    color: #EF4836;
+    letter-spacing: 1.5px;
+    font-family: "Space Mono", serif;
+}
+
+.text_about_subheader {
+    margin: 10px 0;
+    font-size: 16px;
+    color: darkslategray;
+    font-family: Roboto, sans-serif;
+}
+
+.row:first-child {
+    height: 450px;
+    background-color: white;
+}
+
+.row_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
+.img_container {
+    width: 70%;
+    height: auto;
+}
+
+.img_portfolio {
+    height: auto;
+    width: 100%;
+}
+
+.text_container {
+    margin: 0 15%;
+    text-align: center;
+}
+
+.text_container_header {
+    color: white;
+    font-size: 38px;
+    font-family: 'Roboto Slab', serif;
+}
+
+.text_container_subheader {
+    color: floralwhite;
+    font-size: 14px;
+    font-weight: 100;
+    font-family: 'Roboto Slab', sans-serif;
+}
+
+.text_container_paragraph {
+    margin: 20px 0;
+    color: white;
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+}
+
+.slash_style {
+    position: relative;
+    font-size: 10px;
+    top: -2px;
+}
+
+.divider {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.divider_container {
+    position: relative;
+    top: -12px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+
+.first_rect_up {
+    position: relative;
+    left: -6px;
+    margin: 0 6px;
+    background-color: #66A7D5;
+    width: 12px;
+    height: 12px;
+}
+
+.first_rect_bottom {
+    position: relative;
+    left: 6px;
+    margin: 0 6px;
+    background-color: #E29470;
+    width: 12px;
+    height: 12px;
+}
+
+.second_rect_up {
+    position: relative;
+    left: 6px;
+    margin: 0 6px;
+    background-color: #CC527A;
+    width: 12px;
+    height: 12px;
+}
+
+.second_rect_bottom {
+    position: relative;
+    left: -6px;
+    margin: 0 6px;
+    background-color: #66A7D5;
+    width: 12px;
+    height: 12px;
+}
