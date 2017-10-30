@@ -22,7 +22,7 @@ Vector.prototype.divide = function(vector) {
 };
 
 Vector.prototype.scale = function(scale) {
-    return new Vector(this.x*scale, this.y*scale);
+    return new Vector(this.x*scale*0.1, this.y*scale);
 };
 
 Vector.prototype.distance = function(vector) {

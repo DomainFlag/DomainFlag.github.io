@@ -1,38 +1,109 @@
+@media screen and (min-width:320px){
+    #skills {
+        flex-direction: column;
+        height: 600px;
+    }
+    .skill_header {
+        font-size: 14px;
+    }
+    .skill_description {
+        font-size: 9.6px;
+    }
+    .skill_flex {
+        width: 70%;
+    }
+}
+@media screen and (min-width:480px){
+    .skill_header {
+        font-size: 14.4px;
+    }
+    .skill_description {
+        font-size: 9.6px;
+    }
+}
+@media screen and (min-width:768px){
+    #skills {
+        height: 500px;
+    }
+    .skill_header {
+        font-size: 16.8px;
+    }
+    .skill_description {
+        font-size: 11.2px;
+    }
+}
+@media screen and (min-width:1024px){
+    #skills {
+        flex-direction: row;
+        height: 400px;
+    }
+    .skill_header {
+        font-size: 19.2px;
+    }
+    .skill_description {
+        font-size: 12.8px;
+    }
+    .skill_flex {
+        width: 90%;
+    }
+}
+@media screen and (min-width:1200px) {
+    #skills {
+        flex-direction: row;
+        height: 500px;
+    }
+    .skill_header {
+        font-size: 24px;
+    }
+    .skill_description {
+        font-size: 16px;
+    }
+    .skill_flex {
+        width: 80%;
+    }
+}
+
+@media screen and (min-width:1600px){
+    .skill_header {
+        font-size: 24px;
+    }
+    .skill_description {
+        font-size: 16px;
+    }
+}
+
 #skills {
     position: relative;
-    display: table;
-    border-spacing: 80px;
-    border-collapse: separate;
+    display: flex;
+    justify-content: space-around;
     width: 100%;
-    height: 500px;
     background-color: white;
 }
 
 
 .skill_container {
-    display: table-cell;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.skill_flex {
     text-align: center;
-    vertical-align: middle;
 }
 
 .skill_header {
-    width: 100%;
-    text-align: center;
     margin: 20px 0;
     color: #EF4836;
-    font-size: 24px;
     font-family: 'Space Mono', monospace;
 }
 
 .skill_description {
-    text-align: center;
     color: darkslategray;
-    font-size: 16px;
     font-weight: 500;
     font-family: 'Roboto', sans-serif;
 }
 
 .skill_highlight {
     color: teal;
-    font-weight: 700;
+    font-weight: 500;
 }

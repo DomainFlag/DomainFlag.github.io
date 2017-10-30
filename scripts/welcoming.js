@@ -3,8 +3,8 @@ const wobble = 0.05;
 let body = document.body,
     html = document.documentElement;
 
-let viewPortHeight = Math.min( body.scrollHeight, body.offsetHeight,
-    html.clientHeight, html.scrollHeight, html.offsetHeight ) * 90/100;
+
+let viewPortHeight = document.querySelector("#welcoming").clientHeight-80;
 
 let viewPortWidth = Math.max( body.scrollWidth, body.offsetWidth,
     html.clientWidth, html.scrollWidth, html.offsetWidth );

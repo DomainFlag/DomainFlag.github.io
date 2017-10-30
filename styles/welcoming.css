@@ -1,7 +1,9 @@
 #welcoming {
     overflow-x: hidden;
     position: relative;
-    height: 1200px;
+    width: 100%;
+    height: 850px;
+    overflow-y: hidden;
     z-index: 1;
 }
 
@@ -61,7 +63,7 @@ img {
 #welcoming_text {
     position: absolute;
     width: 100%;
-    height: 70%;
+    height: 90%;
     display: flex;
     justify-content: center;
     align-items: center;
