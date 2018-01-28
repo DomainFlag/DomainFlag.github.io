@@ -6,7 +6,7 @@
     height: 900px;
     width: 100%;
     overflow: hidden;
-    background-color: #F2F1EF;
+    background: linear-gradient(0deg, #f4e1b5, #FAD6A5 50%, white 100%);
 }
 
 #footer_background {
