@@ -66,6 +66,7 @@
     align-items: center;
     flex-direction: row;
     height: 100%;
+    width: 60%;
 }
 
 .skill_header {
@@ -76,6 +77,7 @@
     flex: 1;
     color: darkslategray;
     font-family: 'Roboto', sans-serif;
+    font-size: 17px;
 }
 
 .skill_divider {

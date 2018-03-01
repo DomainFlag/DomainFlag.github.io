@@ -258,6 +258,24 @@
     font-family: "Space Mono", serif;
 }
 
+.row_header {
+    width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.row_header_subparagraph {
+    padding: 10px 0;
+    position: absolute;
+    top: 32px;
+    font-size: 24px;
+    color: whitesmoke;
+    font-family: "Space Mono", serif;
+}
+
 .row_container {
     display: flex;
     justify-content: center;
@@ -270,6 +288,12 @@
     justify-content: center;
     align-items: center;
     flex: 1;
+}
+
+.img_container {
+    width: 100%;
+    height: auto;
+>>>>>>> 84574455e589c04f6ed3677cef8f052d31bbf5b1
 }
 
 .img_portfolio {
