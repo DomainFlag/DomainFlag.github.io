@@ -1,0 +1,216 @@
+@media screen and (min-width: 320px)
+    #projects
+        height: 3250px
+        margin-bottom: -750px
+
+    .row
+        height: 1250px
+        flex-direction: column
+
+    .text_container
+        width: 70%
+        text-align: center
+
+    .text_container_header
+        font-size: 48px
+
+    .text_container_subheader
+        font-size: 17px
+
+    .text_container_paragraph
+        font-size: 18px
+        text-align: center
+
+    .img_container
+        width: 70%
+        height: auto
+
+    .row:nth-of-type(4) > .row_container > .column_container:first-of-type
+        order: 2
+
+    .row:nth-of-type(4) > .row_container > .column_container:last-of-type
+        order: 1
+
+    .row:nth-of-type(8) > .row_container > .column_container:first-of-type
+        order: 2
+
+    .row:nth-of-type(8) > .row_container > .column_container:last-of-type
+        order: 1
+
+@media screen and (min-width: 1024px)
+    #projects
+        height: 2200px
+
+    .row
+        height: 800px
+        flex-direction: row
+
+    .img_container
+        width: 100%
+        height: auto
+
+    .text_container
+        width: 100%
+        text-align: left
+
+    .text_container_header
+        font-size: 38px
+
+    .text_container_subheader
+        font-size: 14px
+
+    .text_container_paragraph
+        font-size: 16px
+        text-align: left
+
+#projects
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: column
+    position: relative
+    margin: 48px 0
+    width: 100%
+
+.projects
+    display: flex
+    position: relative
+    justify-content: center
+    align-items: center
+    flex-direction: column
+
+.project-enter
+    opacity: 0
+    transform: scale(0)
+
+.project-enter-active
+    opacity: 1
+    transition: opacity 300ms ease-out
+    animation: pop-in 300ms ease-out
+
+.project-leave
+    opacity: 1
+    transform: scale(1.0)
+
+.project-leave-active
+    opacity: 0
+    transform: scale(0)
+    transition: opacity 300ms ease-out
+    animation: pop-out 300ms ease-out
+
+.project-appear
+    opacity: 0
+    transform: scale(0)
+
+.project-appear-active
+    opacity: 1
+    transition: opacity 300ms ease-out
+    animation: pop-in 300ms ease-out
+
+@keyframes pop-in
+    0%
+        transform: scale(0)
+        -webkit-transform: scale(0)
+
+    100%
+        transform: scale(1.0)
+        -webkit-transform: scale(1.0)
+
+@keyframes pop-out
+    0%
+        transform: scale(1.0)
+        -webkit-transform: scale(1.0)
+
+    100%
+        transform: scale(0)
+        -webkit-transform: scale(0)
+
+.row
+    display: flex
+    position: relative
+    justify-content: center
+    align-items: center
+    flex-direction: row
+    width: 95%
+    margin: 48px 0
+
+.animation
+    display: flex
+    position: absolute
+    justify-content: center
+    align-items: center
+    width: 100%
+    height: 100%
+
+.column_container
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: column
+    flex: 1
+
+.column_container > *
+    margin: 40px 0
+
+.row_header
+    width: 100%
+    position: relative
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: column
+
+.row_header_subparagraph
+    top: 30px
+    position: absolute
+    font-size: 24px
+    color: ghostwhite
+    font-family: "Space Mono", serif
+
+.img_container
+    height: auto
+
+.img_portfolio
+    height: auto
+    max-height: 560px
+    width: auto
+    max-width: 450px
+
+.logo_container
+    display: flex
+    width: 75%
+    justify-content: center
+    align-items: center
+    flex-direction: column
+
+.logo_container > *
+    width: 100px
+    height: auto
+
+.text_container
+    display: flex
+    width: 75%
+    flex-direction: column
+
+.text_container_header
+    color: white
+    font-size: 36px
+    font-family: "Brandon Grotesque Regular", sans-serif
+    font-weight: bold
+
+.text_container_subheader
+    margin: 4px 0
+    color: whitesmoke
+    font-weight: 100
+    font-family: "Brandon Grotesque Regular", sans-serif
+
+.text_container_paragraph
+    margin: 20px 0
+    color: white
+    font-size: 16px
+    font-family: "Brandon Grotesque Regular", sans-serif
+
+.slash_style
+    position: relative
+    font-size: 10px
+    top: -1px
