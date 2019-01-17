@@ -1,11 +1,12 @@
 @media screen and (min-width: 320px)
     #projects
-        height: 3250px
-        margin-bottom: -750px
+        height: 1350px
 
     .row
-        height: 1250px
         flex-direction: column
+
+    .row_small
+        height: 1150px
 
     .text_container
         width: 70%
@@ -25,25 +26,15 @@
         width: 70%
         height: auto
 
-    .row:nth-of-type(4) > .row_container > .column_container:first-of-type
-        order: 2
-
-    .row:nth-of-type(4) > .row_container > .column_container:last-of-type
-        order: 1
-
-    .row:nth-of-type(8) > .row_container > .column_container:first-of-type
-        order: 2
-
-    .row:nth-of-type(8) > .row_container > .column_container:last-of-type
-        order: 1
-
 @media screen and (min-width: 1024px)
     #projects
-        height: 2200px
+        height: 1250px
 
     .row
-        height: 800px
         flex-direction: row
+
+    .row_small
+        height: 650px
 
     .img_container
         width: 100%
@@ -68,9 +59,24 @@
     justify-content: center
     align-items: center
     flex-direction: column
-    position: relative
-    margin: 48px 0
     width: 100%
+
+#projects_full
+    display: flex
+    position: absolute
+    justify-content: center
+    align-items: center
+    flex-direction: column
+    width: 100%
+    height: 100%
+
+.animation
+    display: flex
+    position: absolute
+    justify-content: center
+    align-items: center
+    width: 100%
+    height: 100%
 
 .projects
     display: flex
@@ -78,6 +84,9 @@
     justify-content: center
     align-items: center
     flex-direction: column
+    width: 100%
+    height: 100%
+    background: linear-gradient(0, rgba(255, 255, 255, 1.0) 0%, rgba(255, 255, 255, 0.0) 8%, rgba(255, 255, 255, 0.0) 92%, rgba(255, 255, 255, 1.0) 100%)
 
 .project-enter
     opacity: 0
@@ -127,20 +136,26 @@
 
 .row
     display: flex
+    position: absolute
+    justify-content: center
+    align-items: center
+    flex-direction: column
+    transition: height 0.15s, width 0.15s
+
+.row_small
+    width: 90%
+
+.row_full
+    width: 100%
+    height: 100%
+
+.row_container
+    display: flex
     position: relative
     justify-content: center
     align-items: center
     flex-direction: row
-    width: 95%
-    margin: 48px 0
-
-.animation
-    display: flex
-    position: absolute
-    justify-content: center
-    align-items: center
-    width: 100%
-    height: 100%
+    width: 85%
 
 .column_container
     display: flex
@@ -152,22 +167,88 @@
 .column_container > *
     margin: 40px 0
 
-.row_header
-    width: 100%
-    position: relative
+.overview-enter
+    opacity: 0
+    transform: scale(0)
+
+.overview-enter-active
+    animation: initial
+    opacity: 1
+    transition: opacity 300ms ease-out
+
+.overview-leave
+    animation: none !important
+    opacity: 1
+    transform: scale(1.0)
+
+.overview-leave-active
+    opacity: 0
+    transform: scale(0)
+    transition: opacity 300ms ease-out
+
+.project_action
     display: flex
     justify-content: center
     align-items: center
-    flex-direction: column
-
-.row_header_subparagraph
-    top: 30px
+    flex-direction: row
+    min-height: 20px
     position: absolute
-    font-size: 24px
-    color: ghostwhite
-    font-family: "Space Mono", serif
+    cursor: pointer
+    top: 95%
+    left: 50%
+    transform: translate(-50%, -50%)
 
-.img_container
+.project_finish
+    position: absolute
+    cursor: pointer
+    top: 0
+    left: 100%
+    transform: translate(-200%, 100%)
+
+.project_action_text
+    color: white
+    font-size: 16px
+    font-family: "Brandon Grotesque Regular", sans-serif
+    font-weight: bold
+    animation: glow 1s ease-out alternate-reverse infinite
+    transform-origin: center
+
+.project_action_text:hover
+    animation: none
+
+@keyframes glow
+    0%
+        opacity: 0.6
+        transform: scale(1.0)
+    100%
+        opacity: 1.0
+        transform: scale(1.015)
+
+.project_interaction_component
+    padding: 8px
+
+.project_interaction_circle
+    width: 14px
+    height: 14px
+    border-radius: 12px
+    opacity: 0.4
+
+.project_interaction_circle_primary
+    transform-origin: center
+    transform: scale(1.15)
+    opacity: 1.0
+
+.brand_container
+    position: absolute
+    display: flex
+    top: 0
+    left: 0
+    opacity: 1.0
+    transform: translate(100%, 100%)
+    justify-content: center
+    align-items: center
+    flex-direction: column
+    width: 48px
     height: auto
 
 .img_portfolio
@@ -176,17 +257,6 @@
     width: auto
     max-width: 450px
 
-.logo_container
-    display: flex
-    width: 75%
-    justify-content: center
-    align-items: center
-    flex-direction: column
-
-.logo_container > *
-    width: 100px
-    height: auto
-
 .text_container
     display: flex
     width: 75%
@@ -194,23 +264,31 @@
 
 .text_container_header
     color: white
-    font-size: 36px
+    font-size: 44px
+    font-family: "Brandon Grotesque Regular", sans-serif
+    font-weight: bold
+
+.text_container_title
+    font-size: 32px
     font-family: "Brandon Grotesque Regular", sans-serif
     font-weight: bold
 
 .text_container_subheader
     margin: 4px 0
-    color: whitesmoke
+    color: white
+    opacity: 0.8
     font-weight: 100
+    font-size: 14px
     font-family: "Brandon Grotesque Regular", sans-serif
 
 .text_container_paragraph
     margin: 20px 0
     color: white
-    font-size: 16px
+    font-size: 18px
     font-family: "Brandon Grotesque Regular", sans-serif
 
 .slash_style
     position: relative
     font-size: 10px
     top: -1px
+    margin: 0 1px

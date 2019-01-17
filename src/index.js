@@ -10,10 +10,20 @@ import {Credits} from "./components/credits/Credits";
 import "./index.sass"
 
 class App extends Component {
+
+    static defaultState = {
+        style : {
+            accent : {
+                color : "#D32F2F"
+            }
+        }
+    };
+
     constructor(props) {
         super(props);
 
         this.state = {
+            viewFullMode : false,
             components : [
                 {
                     componentHeight : null,
@@ -31,7 +41,8 @@ class App extends Component {
                     title : "credits",
                     children : []
                 }
-            ]
+            ],
+            ...App.defaultState
         };
 
         this.componentHome = React.createRef();
@@ -74,14 +85,54 @@ class App extends Component {
     };
 
     onScrollComponents = (e) => {
-        this.componentTools.current.onScrollComponents(e.target.documentElement.scrollTop);
+        let scrollTop = e.target.documentElement.scrollTop;
+
+        this.componentTools.current.onScrollComponents(scrollTop, 0);
+        this.componentProjects.current.onScrollComponents(scrollTop, scrollTop - this.state.components[0].componentHeight);
+    };
+
+    onChangeStyle = (style) => {
+        this.setState({
+            style : (style != null) ? style : App.defaultState.style
+        });
+    };
+
+    onFullViewComponent = (state) => {
+        if(state) {
+            this.setState({
+                offset : document.documentElement.scrollTop
+            });
+        }
+
+        let resolved = [];
+        [this.componentHome, this.componentCredits].forEach((component) => {
+            let promiseResolve = null;
+            let promise = new Promise(resolve => promiseResolve = resolve);
+
+            component.current.onDisplayComponent(!state, promiseResolve);
+
+            resolved.push(promise);
+        });
+
+        Promise.all(resolved).then(() => {
+            if(!state) {
+                window.scrollTo(0, this.state.offset);
+            }
+        });
     };
 
     render = () => (
-        <div id="components" onScroll={this.onScrollComponents} >
+        <div id="components" onScroll={this.onScrollComponents}>
             <Home ref={this.componentHome} />
-            <Tools ref={this.componentTools} components={this.state.components} onForcedScrollComponents={this.onForcedScrollComponents}/>
-            <Projects ref={this.componentProjects} />
+            <Tools ref={this.componentTools}
+                   style={this.state.style}
+                   components={this.state.components}
+                   onForcedScrollComponents={this.onForcedScrollComponents}
+                   onFullViewComponent={this.onFullViewComponent}/>
+            <Projects
+                ref={this.componentProjects}
+                onChangeStyle={this.onChangeStyle}
+                onFullViewComponent={this.onFullViewComponent}/>
             <Credits ref={this.componentCredits} />
         </div>
     );

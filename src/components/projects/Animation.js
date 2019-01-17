@@ -4,7 +4,6 @@ let render = (rootAnimation, viewPortWidth, viewPortHeight) => {
     new CanvasDisplay(rootAnimation, viewPortWidth, viewPortHeight);
 };
 
-
 class Grader {
     constructor(perlin, viewPortWidth, viewPortHeight, noiseScale, stepLength) {
         this.perlin = perlin;
@@ -100,7 +99,7 @@ class CanvasDisplay {
                 let ln = grader.step();
                 let alpha = 0.075 * this.opacity.get();
 
-                ctx.strokeStyle = "rgba(92, 20, 42, " + alpha + ")";
+                ctx.strokeStyle = "rgba(50, 50, 50, " + alpha + ")";
                 ctx.moveTo(ln.x1, ln.y1);
                 ctx.lineTo(ln.x2, ln.y2);
             }

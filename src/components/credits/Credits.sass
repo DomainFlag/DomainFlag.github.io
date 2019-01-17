@@ -6,7 +6,17 @@
     height: 900px
     width: 100%
     overflow: hidden
-    background: linear-gradient(0deg, #f4e1b5, #FAD6A5 50%, white 100%)
+    background: linear-gradient(0deg, rgba(252, 201, 185, 0.6) 50%, white 100%)
+
+#footer:before
+    content: ''
+    position: absolute
+    display: flex
+    justify-content: center
+    align-items: center
+    height: 900px
+    width: 100%
+    background: radial-gradient(rgba(201, 55, 60, 0.075) 20%, rgba(255, 255, 255, 0) 50%)
 
 #footer_background
     position: absolute
@@ -42,42 +52,61 @@
     flex-direction: column
     background: radial-gradient(farthest-corner at 50% 0%, rgba(210, 230, 249, 0.5), rgba(53,142,180, 0.9))
 
-.contact_text
+.footer_details
     position: relative
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: column
     top: 20%
     transform: translate(0, -50%)
+
+    > *
+        margin: 8px 0
+
+.contact_text
     color: rgba(68, 108, 179, 1)
     font-size: 18px
-    font-weight: 400
-    font-style: normal
+    font-weight: bold
     font-family: "Brandon Grotesque Regular", sans-serif
 
 .contact_address
-    position: relative
-    top: 25%
-    transform: translate(0, -50%)
     background-color: rgba(68, 108, 179, 0.9)
     border-radius: 4px
     padding: 9px 15px
     text-decoration: none
     color : white
     font-size: 13px
-    font-weight: 400
+    font-weight: bold
+    text-transform: uppercase
     letter-spacing: 1.3px
-    font-style: normal
     font-family: "Brandon Grotesque Regular", sans-serif
 
 .contact_address:hover
     background-color: rgba(68, 108, 179, 1)
 
-.rights
+.footer_info
     position: absolute
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: column
+    padding: 8px 0
     top: 100%
-    transform: translate(0, -150%)
+    transform: translate(0, -100%)
+    z-index: 4
+
+    > *
+        margin: 2px 0
+        font-weight: 600
+        color: rgba(68, 108, 179, 1)
+        font-family: "Brandon Grotesque Regular", sans-serif
+
+.note
     font-size: 12px
-    font-weight: 600
-    color: rgba(68, 108, 179, 1)
-    z-index: 10
+
+.rights
+    font-size: 14px
 
 #boat_1
     position: absolute

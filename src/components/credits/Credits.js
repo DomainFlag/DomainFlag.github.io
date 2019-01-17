@@ -14,6 +14,10 @@ export class Credits extends Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+            display : true
+        };
+
         this.component = React.createRef();
         this.rootAnimation = React.createRef();
     }
@@ -26,28 +30,52 @@ export class Credits extends Component {
         render(this.rootAnimation, viewPortWidth, viewPortHeight);
     };
 
+    componentDidUpdate = () => {
+        if(this.state.promise) {
+            this.state.promise();
+
+            this.setState({
+                promise : null
+            });
+        }
+    };
+
     receiveClientHeight = () => {
         return this.component.current.clientHeight;
     };
 
+    onDisplayComponent = (state, promise) => {
+        this.setState({
+            promise,
+            display : state
+        });
+    };
+
     render = () => (
-        <section id="footer" ref={this.component}>
+        <section id="footer" ref={this.component} style={{display : (this.state.display ? "flex" : "none")}}>
             <div id="footer_background" ref={this.rootAnimation}/>
 
             <img id="land" src={land} alt="Home Land"/>
-                <div className="footer_container">
-                    <img id="boat_1" src={boat_1} alt="Moving boat"/>
-                    <img id="boat_2" src={boat_2} alt="Moving boat"/>
-                    <img id="boat_3" src={boat_3} alt="Moving boat"/>
-                    <img id="boat_4" src={boat_1} alt="Moving boat"/>
-                    <div className="footer_row"/>
-                    <div className="footer_row">
+
+            <div className="footer_container">
+                <img id="boat_1" src={boat_1} alt="Moving boat"/>
+                <img id="boat_2" src={boat_2} alt="Moving boat"/>
+                <img id="boat_3" src={boat_3} alt="Moving boat"/>
+                <img id="boat_4" src={boat_1} alt="Moving boat"/>
+                <div className="footer_row"/>
+                <div className="footer_row">
+                    <div className="footer_details">
                         <h1 className="contact_text">No more scrolling, ugh... do some clicking instead.</h1>
                         <a href="mailto:Cchivriga@hotmail.com"
                            className="contact_address">Contact Me</a>
                     </div>
                 </div>
+            </div>
+
+            <div className="footer_info">
+                <p className="note">Built with &hearts; using ReactJs and WebGL</p>
                 <p className="rights">© 2019 Cristian Chivriga. All rights reserved.</p>
+            </div>
         </section>
     )
 }
