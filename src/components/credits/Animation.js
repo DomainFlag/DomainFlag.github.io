@@ -56,7 +56,7 @@ class Land {
         rootAnimation.current.appendChild(this.canvas);
 
         this.smokes = [];
-        for(let i = 0; i < 185; i++) {
+        for(let i = 0; i < 125; i++) {
             this.smokes.push(new Smoke(this.viewPortWidth, this.viewPortHeight));
         }
 
@@ -89,10 +89,10 @@ class Land {
             ctx.stroke();
 
             let pair = 0;
-            for(let g = this.windMills[i].rotation; g <= 2*Math.PI+this.windMills[i].rotation; g+=Math.PI/2) {
+            for(let g = this.windMills[i].rotation; g <= 2 * Math.PI + this.windMills[i].rotation; g += Math.PI / 2) {
                 ctx.beginPath();
-                ctx.moveTo(pos.x, pos.y-20);
-                ctx.lineTo(pos.x+Math.sin(g)*8, pos.y-20+Math.cos(g)*8);
+                ctx.moveTo(pos.x, pos.y - 20);
+                ctx.lineTo(pos.x + Math.sin(g) * 8, pos.y - 20 + Math.cos(g)*8);
 
                 switch(pair) {
                     case 0 : {
@@ -129,9 +129,9 @@ class Land {
 
         ctx.save();
         this.smokes.forEach((smoke) => {
-            ctx.globalAlpha = 0.025 - smoke.pos.distance(new Vector(this.viewPortWidth / 2 - 5 * smoke.scale, this.viewPortHeight / 2 - this.viewPortWidth * 0.11)) / (this.viewPortHeight / 2 - this.viewPortWidth * 0.11) / 40;
-            ctx.drawImage(this.smokeImage, smoke.pos.x, smoke.pos.y, 5 * smoke.scale, 5 * smoke.scale);
+            ctx.globalAlpha = 0.0225 - smoke.pos.distance(new Vector(this.viewPortWidth / 2 - 5 * smoke.scale, this.viewPortHeight / 2 - this.viewPortWidth * 0.11)) / (this.viewPortHeight / 2 - this.viewPortWidth * 0.11) / 40;
 
+            ctx.drawImage(this.smokeImage, smoke.pos.x, smoke.pos.y, 5 * smoke.scale, 5 * smoke.scale);
 
             smoke.act();
         });

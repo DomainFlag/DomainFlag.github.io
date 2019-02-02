@@ -85,10 +85,12 @@ class App extends Component {
     };
 
     onScrollComponents = (e) => {
-        let scrollTop = e.target.documentElement.scrollTop;
+        if(!this.state.viewFullMode) {
+            let scrollTop = e.target.documentElement.scrollTop;
 
-        this.componentTools.current.onScrollComponents(scrollTop, 0);
-        this.componentProjects.current.onScrollComponents(scrollTop, scrollTop - this.state.components[0].componentHeight);
+            this.componentTools.current.onScrollComponents(scrollTop, 0);
+            this.componentProjects.current.onScrollComponents(scrollTop, scrollTop - this.state.components[0].componentHeight);
+        }
     };
 
     onChangeStyle = (style) => {
@@ -100,12 +102,17 @@ class App extends Component {
     onFullViewComponent = (state) => {
         if(state) {
             this.setState({
+                viewFullMode : true,
                 offset : document.documentElement.scrollTop
+            });
+        } else {
+            this.setState({
+                viewFullMode : false
             });
         }
 
         let resolved = [];
-        [this.componentHome, this.componentCredits].forEach((component) => {
+        [this.componentHome, this.componentTools, this.componentCredits].forEach((component) => {
             let promiseResolve = null;
             let promise = new Promise(resolve => promiseResolve = resolve);
 
@@ -116,7 +123,10 @@ class App extends Component {
 
         Promise.all(resolved).then(() => {
             if(!state) {
+                // Restore to previous scroll-y position
                 window.scrollTo(0, this.state.offset);
+            } else {
+                window.scrollTo(0, 0);
             }
         });
     };

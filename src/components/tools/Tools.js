@@ -8,10 +8,21 @@ export class Tools extends Component {
         super(props);
 
         this.state = {
+            display : true,
             scrollPosition : 0,
             activeComponent : this.props.components[0]
         };
     }
+
+    componentDidUpdate = () => {
+        if(this.state.promise) {
+            this.state.promise();
+
+            this.setState({
+                promise : null
+            });
+        }
+    };
 
     componentWillReceiveProps = (nextProps) => {
         if(nextProps.components !== this.props.components) {
@@ -58,8 +69,15 @@ export class Tools extends Component {
         this.props.onForcedScrollComponents(component.componentTop);
     };
 
+    onDisplayComponent = (state, promise) => {
+        this.setState({
+            promise,
+            display : state
+        });
+    };
+
     render = () => (
-        <section id="tools">
+        <section id="tools" style={{display : (this.state.display ? "flex" : "none")}}>
             <p className="tools-header" style={this.props.style.accent}>{this.state.activeComponent.title.toUpperCase()}</p>
             <div className="tools-utils">
                 {

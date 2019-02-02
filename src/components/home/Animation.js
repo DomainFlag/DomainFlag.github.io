@@ -1,42 +1,7 @@
-import * as THREE from 'three';
-
 const WOBBLE_EFFECT = 0.05;
 
 let render = (rootAnimation, viewPortWidth, viewPortHeight) => {
     new CanvasDisplay(rootAnimation, viewPortWidth, viewPortHeight);
-};
-
-let threeCubeAnimation = (rootAnimation) => {
-    let scene = new THREE.Scene();
-    let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-
-    let renderer = new THREE.WebGLRenderer({ alpha: true });
-    renderer.setClearColor(0x000000, 0);
-    renderer.setSize(window.innerWidth, window.innerHeight);
-
-    rootAnimation.appendChild(renderer.domElement);
-
-    let directionalLight = new THREE.DirectionalLight(0xffffff, 1.0);
-    directionalLight.position.set(0, 0, 1);
-    scene.add(directionalLight);
-
-    let geometry = new THREE.BoxGeometry(1, 1, 1);
-    let material = new THREE.MeshLambertMaterial({ color: 0x901000 });
-    let cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
-
-    camera.position.z = 5;
-
-    let animate = function () {
-        requestAnimationFrame( animate );
-
-        cube.rotation.x += 0.01;
-        cube.rotation.y += 0.01;
-
-        renderer.render(scene, camera);
-    };
-
-    animate();
 };
 
 class Color {
@@ -130,12 +95,12 @@ class CanvasDisplay {
         this.canvas = document.createElement("canvas");
         this.ctx = this.canvas.getContext("2d");
 
-        rootAnimation.current.appendChild(this.canvas);
+        rootAnimation.current.appendChild(this.canvas, rootAnimation.current.firstChild);
 
         this.backgroundCanvas = document.createElement("canvas");
         this.backgroundCtx = this.backgroundCanvas.getContext("2d");
 
-        rootAnimation.current.appendChild(this.backgroundCanvas);
+        rootAnimation.current.appendChild(this.backgroundCanvas, rootAnimation.current.lastChild);
 
         this.viewPortWidth = viewPortWidth;
         this.viewPortHeight = viewPortHeight;
@@ -144,7 +109,7 @@ class CanvasDisplay {
 
         this.stars = [];
 
-        for(let i = 0; i < 75; i++) {
+        for(let i = 0; i < 50; i++) {
             this.stars.push(new Star(this, i));
         }
 
