@@ -4,7 +4,7 @@ import {Component} from 'react';
 import render from './Animation';
 
 import background from "../../resources/home/stardust.jpg";
-import cv from "./../../assets/Cristian_Chivriga_Resume.pdf";
+import cv from "./../../assets/resume.pdf";
 
 import "./Home.sass";
 
@@ -66,7 +66,7 @@ export class Home extends Component {
                     <a href="https://github.com/DomainFlag" target="_blank" rel="noopener noreferrer">
                         Github
                     </a>
-                    <a href="https://www.linkedin.com/in/cristian-chivriga-a2b44aa7/" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.linkedin.com/in/cchivriga/" target="_blank" rel="noopener noreferrer">
                         Linkedin
                     </a>
                     <a href={cv} target="_blank" rel="noopener noreferrer">
@@ -77,7 +77,7 @@ export class Home extends Component {
             <div id="welcoming_text">
                 <div id="welcoming_text_container">
                     <h1 id="welcoming_text_header">Hi! I'm Cristian.</h1>
-                    <h1 id="welcoming_text_subheader">I am a 21 years old CS student about to graduate, passionated about software development and driven to build things that matter.</h1>
+                    <h1 id="welcoming_text_subheader">I am a 21 years old CS student about to graduate, passionate about software development and driven to build things that matter.</h1>
                 </div>
             </div>
         </section>

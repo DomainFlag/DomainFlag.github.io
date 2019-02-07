@@ -60,8 +60,6 @@ export class Tools extends Component {
     };
 
     setOnActiveComponent = (component) => {
-        this.props.onFullViewComponent(false);
-
         this.setState({
             activeComponent : component
         });

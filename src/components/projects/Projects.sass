@@ -15,7 +15,7 @@
     .text_container_subheader
         font-size: 17px
 
-    .text_container_paragraph
+    .text_container_paragraphvideo_portfolio
         font-size: 18px
         text-align: center
 
@@ -188,21 +188,22 @@
     transform: translate(-50%, -150%)
 
 .project_other
+    z-index : 1
     display: flex
     justify-content: center
     align-items: center
     flex-direction: row
-    cursor: pointer
-    top: 0
-    left: 100%
-    transform: translate(-150%, 100%)
+    top: 16px
+    left: calc(100% - 48px)
+    transform: translate(-100%, 50%)
 
 .project_action_link
-    margin: 0 20px
+    margin: 0 24px
     color: white
     opacity: 0.8
     font-size: 18px
     font-family: "Brandon Grotesque Regular", sans-serif
+    cursor: pointer
     text-decoration: none
 
     &:hover
@@ -215,6 +216,7 @@
     font-weight: bold
     animation: glow 1s ease-out alternate-reverse infinite
     transform-origin: center
+    cursor: pointer
 
 .project_action_text:hover
     animation: none
@@ -244,10 +246,10 @@
 .brand_container
     position: absolute
     display: flex
-    top: 0
-    left: 0
+    top: 16px
+    left: 16px
     opacity: 1.0
-    transform: translate(100%, 100%)
+    transform: translate(50%, 50%)
     justify-content: center
     align-items: center
     flex-direction: column
@@ -279,8 +281,6 @@
 
 .video_portfolio
     position: relative
-    max-height: 560px
-    max-width: 280px
     margin: -2px 0
 
 .container_pulse

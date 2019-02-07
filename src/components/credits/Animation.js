@@ -110,7 +110,7 @@ class Land {
                         ctx.lineTo(pos.x + Math.sin(g-Math.PI/4) * 8, pos.y-20+Math.cos(g-Math.PI/4)*8);
                         break;
                     }
-                    case 3 : {
+                    default : {
                         ctx.fillStyle = "#03A678";
                         ctx.lineTo(pos.x + Math.sin(g-Math.PI/4) * 8, pos.y-20+Math.cos(g-Math.PI/4) * 8);
                         break;
