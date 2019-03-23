@@ -69,12 +69,20 @@ class App extends Component {
             }, [])
         }));
 
+        window.addEventListener('resize', this.onResizeEventPropagation.bind(this));
         document.addEventListener("scroll", this.onScrollComponents.bind(this));
     };
 
     componentWillUnmount() {
+        window.removeEventListener("resize", this.onResizeEventPropagation.bind(this));
         document.removeEventListener("scroll", this.onScrollComponents.bind(this));
     }
+
+    onResizeEventPropagation = (event) => {
+        [this.componentHome, this.componentProjects, this.componentCredits].forEach((component) => {
+            component.current.onResizeEvent(event);
+        });
+    };
 
     onForcedScrollComponents = (value) => {
         window.scroll({

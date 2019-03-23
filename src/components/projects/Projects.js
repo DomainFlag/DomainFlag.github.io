@@ -11,8 +11,8 @@ import render from "./Animation";
 import "./Projects.sass";
 
 const snippetFull = {
-    maxHeight: "720px",
-    maxWidth: "480px"
+    maxHeight: "100%",
+    maxWidth: "100%"
 };
 
 const snippetPrimary = {
@@ -244,13 +244,13 @@ class Renderer extends Component {
                                 {
                                     this.props.step.images.map((image, index) => {
                                         let active = this.props.active ? "active" : "normal";
-                                        let style = lenImages === 1 ? snippetFull : index % 2 === 1 ? snippetPrimary[active] : snippetSecondary[active];
+                                        let style = lenImages === 1 ? "snippet-full" :
+                                            (index % 2 === 1 ? "snippet-primary-" : "snippet-secondary-") + active;
 
                                         return (
-                                            <img key={index} className={(lenImages > 1 ? "img_portfolio" : null)} style={{
+                                            <img key={index} className={(lenImages > 1 ? "img_portfolio " : "") + style} style={{
                                                 left: lenImages > 1 && (90 * (index + 1 + ((this.props.active && lenImages !== 1) && (index - 1) * 0.4)) / (lenImages + 1) + "%"),
-                                                position : (lenImages > 1 && "absolute"),
-                                                ...style
+                                                position : (lenImages > 1 && "absolute")
                                             }} src={image}  alt="showcase img"/>
                                         )
                                     })
@@ -363,6 +363,10 @@ export class Projects extends Component {
         this.activeProject = React.createRef();
     }
 
+    onResizeEvent = (event) => {
+
+    };
+
     componentDidMount = () => {
         let viewPortHeight = this.component.current.clientHeight;
         let viewPortWidth = Math.max(this.rootAnimation.current.scrollWidth, this.rootAnimation.current.offsetWidth,
@@ -402,7 +406,7 @@ export class Projects extends Component {
                 offsetY = size;
             }
 
-            let offsetX = Math.max(32, offsetY / size * this.activeProject.current.clientWidth);
+            let offsetX = Math.floor(offsetY / size * 100);
             if(this.state.activeProjectOffset !== offsetX) {
                 if(this.state.activeProject !== activeNewProject) {
                     this.setState({
@@ -441,9 +445,10 @@ export class Projects extends Component {
                             ))
                         }
                         {
-                            !this.state.activeFullView && <div className="progress" style={{
-                                width: this.state.activeProjectOffset + "px",
-                                backgroundColor : projects[this.state.activeProject].style.accent.color}}/>
+                            !this.state.activeFullView &&
+                            <div className="progress" style={{color : projects[this.state.activeProject].style.accent.color}}>
+                                {this.state.activeProjectOffset + "%"}
+                            </div>
                         }
                     </div>
                 </div>

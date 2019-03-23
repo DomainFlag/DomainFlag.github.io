@@ -2,6 +2,9 @@
     #projects
         height: 3350px
 
+    .row_container
+        flex-direction: column
+
     .row
         flex-direction: column
 
@@ -27,6 +30,9 @@
     #projects
         height: 3250px
 
+    .row_container
+        flex-direction: row
+
     .row
         flex-direction: row
 
@@ -47,6 +53,42 @@
     .text_container_paragraph
         font-size: 16px
         text-align: left
+
+.snippet-full
+    max-height: 80%
+    max-width: 80%
+
+.snippet-primary-active
+    z-index : 1
+    max-height: 520px
+    max-width: 260px
+    transform: translate(-50%, -50%)
+
+.snippet-primary-normal
+    z-index : 1
+    max-height : 440px
+    max-width : 220px
+    transform : translate(-50%, -50%)
+
+.snippet-secondary-active
+    z-index : 0
+    max-height : 440px
+    max-width : 220px
+    transform : translate(-50%, calc(-50% + 25px))
+
+.snippet-secondary-normal
+    z-index : 0
+    max-height : 360px
+    max-width : 180px
+    transform : translate(-50%, calc(-50% + 25px))
+
+.video-style-native
+    max-height : 560px
+    max-width : 280px
+
+.video-style-desktop
+    max-height : 480px
+    max-width : 720px
 
 #projects
     display: flex
@@ -102,12 +144,11 @@
 
 .progress
     position: absolute
+    font-weight: bold
+    font-family: "Brandon Grotesque", sans-serif
     top: 100%
-    left: 0
-    transform: translate(0, 16px)
-    width: 32px
-    height: 5px
-    border-radius: 5px
+    left: 50%
+    transform: translate(-50%, 50%)
 
 .project
     display: flex
@@ -157,7 +198,6 @@
     position: relative
     justify-content: center
     align-items: center
-    flex-direction: row
     width: 95%
     height: 100%
 

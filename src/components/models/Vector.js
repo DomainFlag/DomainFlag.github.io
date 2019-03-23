@@ -4,32 +4,37 @@ export default class Vector {
         this.y = y;
     }
 
-    add = (vector) => {
-        this.x += vector.x;
-        this.y += vector.y;
+    copy = (vec) => {
+        this.x = vec.x;
+        this.y = vec.y;
     };
 
-    plus = (vector) => {
-        this.x += vector.x;
-        this.y += vector.y;
+    add = (vec) => {
+        this.x += vec.x;
+        this.y += vec.y;
     };
 
-    divide = (vector) => {
-        this.x /= vector.x;
-        this.y /= vector.y;
+    plus = (vec) => {
+        this.x += vec.x;
+        this.y += vec.y;
+    };
+
+    divide = (vec) => {
+        this.x /= vec.x;
+        this.y /= vec.y;
     };
 
     scale = (scale) => {
         return new Vector(this.x * scale * 0.1, this.y * scale);
     };
 
-    distance = (vector) => {
-        return Math.sqrt(Math.pow(this.x - vector.x, 2) + Math.pow(this.y - vector.y, 2));
+    distance = (vec) => {
+        return Math.sqrt(Math.pow(this.x - vec.x, 2) + Math.pow(this.y - vec.y, 2));
     };
 
-    unitVector = (vector) => {
-        let distance = this.distance(vector);
+    unitVector = (vec) => {
+        let distance = this.distance(vec);
 
-        return new Vector((this.x - vector.x) / distance, (this.y - vector.y) / distance);
+        return new Vector((this.x - vec.x) / distance, (this.y - vec.y) / distance);
     };
 };

@@ -1,145 +1,176 @@
 import Vector from "./../models/Vector";
 
 import smokePath from "./../../resources/credits/smoke.png";
+import Renderer from "../models/Renderer";
 
-let render = (rootAnimation, viewPortWidth, viewPortHeight) => {
-    new Land(rootAnimation, viewPortWidth, viewPortHeight);
+let animator = (rootAnimation, pivot, viewPortWidth, viewPortHeight) => {
+    return new Land(rootAnimation, pivot, viewPortWidth, viewPortHeight);
 };
 
 class Smoke {
-    constructor(width, height) {
+
+    static size = 12;
+    static growth = 6;
+    static offset = 23;
+    static alpha = 0.025;
+
+    set = (width, height, ratio) => {
         this.width = width;
         this.height = height;
-
-        this.scale = 1 + Math.random() * 4;
+        this.ratio = ratio;
+        this.scale = Smoke.size + Math.random() * Smoke.size;
+        this.origin = new Vector(
+            this.width / 2 + (this.scale - (Smoke.size + Smoke.growth) / 2) - Smoke.offset / ratio,
+            this.height / 2 - this.width * 0.115 / this.ratio
+        );
 
         let sign = Math.random() < 0.5 ? -1 : 1;
 
-        let y = Math.random() * (this.height / 2 - this.width * 0.11);
-        let x = this.width / 2 - 4 * this.scale + sign * ((this.height / 2 - y) * Math.tan(Math.random() / 10));
+        let y = Math.random() * (this.height / 2 - this.width * 0.115 / ratio);
+        let x = this.width / 2 - Smoke.offset /ratio + this.scale - (Smoke.size + Smoke.growth) / 2 +
+            sign * ((this.height / 2 - y) * Math.tan(Math.random() / 10));
 
         this.pos = new Vector(x, y);
         this.velocity = new Vector(Math.random() / 10 - 0.05, -(0.1 + Math.random() / 8));
-    }
+    };
 
     act = () => {
-        if(this.pos.distance(new Vector(this.width / 2 - 5 * this.scale, this.height / 2 - this.width * 0.11)) > (this.height / 2 - this.width * 0.11)) {
-            this.pos.y = this.height / 2 - this.width * 0.11;
-            this.pos.x = this.width / 2 - 4 * this.scale;
+        if(this.pos.y < 0) {
+            this.pos.copy(this.origin);
         } else {
             this.pos.add(this.velocity);
         }
     };
-}
 
+    render = (ctx, smoke) => {
+        // Smoke.alpha when close to center and 0 when out
+        ctx.globalAlpha = Math.max(0, Smoke.alpha * (this.pos.y / this.origin.y));
+        ctx.drawImage(smoke, this.pos.x, this.pos.y, this.scale, this.scale);
 
-class WindMill {
-    constructor(x, y) {
-        this.pos = new Vector(x, y);
-        this.rotation = 0;
-        this.rotationPower = 0.03 + Math.random() / 100;
-    }
-
-    act = () => {
-        this.rotation = (this.rotation + this.rotationPower) % (2 * Math.PI);
+        this.act();
     };
 }
 
-class Land {
-    constructor(rootAnimation, viewPortWidth, viewPortHeight) {
-        this.viewPortWidth = viewPortWidth;
-        this.viewPortHeight = viewPortHeight;
 
-        this.canvas = document.createElement("canvas");
-        this.ctx = this.canvas.getContext("2d");
+class Windmill {
 
-        rootAnimation.current.appendChild(this.canvas);
+    static colors = ["#F64747", "#F7CA18", "#2574A9", "#03A678"];
+    static spin = 0.03 + Math.random() / 80;
 
-        this.smokes = [];
-        for(let i = 0; i < 125; i++) {
-            this.smokes.push(new Smoke(this.viewPortWidth, this.viewPortHeight));
+    set = (x, y) => {
+        this.pos = new Vector(x, y);
+        this.rotation = 0;
+        this.size = 8;
+        this.len = 18;
+    };
+
+    act = () => {
+        this.rotation = (this.rotation + Windmill.spin) % (2 * Math.PI);
+    };
+
+    render = (ctx) => {
+        ctx.beginPath();
+        ctx.moveTo(this.pos.x, this.pos.y);
+        ctx.lineTo(this.pos.x, this.pos.y - this.len);
+        ctx.stroke();
+
+        let rot = this.rotation;
+        for(let g = 0; g < 4; g++) {
+            ctx.fillStyle = Windmill.colors[g];
+
+            ctx.beginPath();
+            ctx.moveTo(this.pos.x, this.pos.y - this.len);
+            ctx.lineTo(this.pos.x + Math.sin(rot) * this.size, this.pos.y - this.len + Math.cos(rot) * this.size);
+            ctx.lineTo(this.pos.x + Math.sin(rot - Math.PI / 4) * this.size, this.pos.y - this.len + Math.cos(rot - Math.PI / 4) * this.size);
+            ctx.closePath();
+            ctx.fill();
+
+            rot += Math.PI / 2;
         }
 
-        this.windMills = [];
-        this.windMills.push(new WindMill(this.viewPortWidth / 2 - this.viewPortWidth * 0.0088, this.viewPortHeight / 2 - 0.015 * this.viewPortWidth));
-        this.windMills.push(new WindMill(this.viewPortWidth / 2 + this.viewPortWidth * 0.082, this.viewPortHeight / 2 - 0.04 * this.viewPortWidth));
-        this.windMills.push(new WindMill(this.viewPortWidth / 2 - this.viewPortWidth * 0.079, this.viewPortHeight / 2 - 0.03 * this.viewPortWidth));
+        this.act();
+    };
+}
 
-        this.canvas.width = this.viewPortWidth;
-        this.canvas.height = this.viewPortHeight;
+class Land extends Renderer {
+
+    static smokesCount = 125;
+    static windmillsCoord = [
+        [-120, -40],
+        [120, -20],
+        [-10, -50]
+    ];
+
+    constructor(rootAnimation) {
+        super(rootAnimation);
+
+        this.smokes = [];
+        for(let i = 0; i < Land.smokesCount; i++) {
+            let smoke = new Smoke();
+
+            this.smokes.push(smoke);
+        }
+
+        this.windmills = [];
+        for(let i = 0; i  < Land.windmillsCoord.length; i++) {
+            let windmill = new Windmill();
+
+            this.windmills.push(windmill);
+        }
 
         this.smokeImage = new Image();
         this.smokeImage.src = smokePath;
-        this.smokeImage.addEventListener("load", () => {
+    };
+
+    render = (viewPortWidth, viewPortHeight, pivot) => {
+        this.adapt(viewPortWidth, viewPortHeight);
+
+        let width = pivot.current.clientWidth / 2;
+        let ratio = 190 / width * viewPortWidth / 1520;
+
+        let w = this.viewPortWidth / 2;
+        let y = this.viewPortHeight / 2;
+
+        for(let i = 0; i < this.smokes.length; i++) {
+            this.smokes[i].set(this.viewPortWidth, this.viewPortHeight, ratio);
+        }
+
+        for(let i = 0; i  < this.windmills.length; i++) {
+            let coord = Land.windmillsCoord[i];
+
+            this.windmills[i].set(w + coord[0] * ratio, y + coord[1]);
+        }
+
+        if(this.renderer != null) {
+            cancelAnimationFrame(this.renderer);
+
+            this.renderer = null;
+        }
+
+        if(!this.smokeImage.complete) {
+            this.smokeImage.addEventListener("load", () => {
+                this.renderAnimations(this.ctx);
+            });
+        } else {
             this.renderAnimations(this.ctx);
-        });
-    }
+        }
+    };
 
     renderAnimations = (ctx) => {
         ctx.clearRect(0, 0, this.viewPortWidth, this.viewPortHeight);
 
-        for(let i = 0; i < 3; i++) {
-            let pos = this.windMills[i].pos;
+        ctx.globalAlpha = 1.0;
+        ctx.strokeStyle = "#A39381";
+        ctx.lineWidth = 1;
 
-            ctx.strokeStyle = "#6C7A89";
-            ctx.lineWidth = 1;
-            ctx.beginPath();
-            ctx.moveTo(pos.x, pos.y);
-            ctx.lineTo(pos.x, pos.y - 20);
-            ctx.stroke();
+        for(let g = 0; g < this.windmills.length; g++)
+            this.windmills[g].render(ctx);
 
-            let pair = 0;
-            for(let g = this.windMills[i].rotation; g <= 2 * Math.PI + this.windMills[i].rotation; g += Math.PI / 2) {
-                ctx.beginPath();
-                ctx.moveTo(pos.x, pos.y - 20);
-                ctx.lineTo(pos.x + Math.sin(g) * 8, pos.y - 20 + Math.cos(g)*8);
+        for(let g = 0; g < this.smokes.length; g++)
+            this.smokes[g].render(ctx, this.smokeImage);
 
-                switch(pair) {
-                    case 0 : {
-                        ctx.fillStyle = "#F64747";
-                        ctx.lineTo(pos.x + Math.sin(g-Math.PI/4)*8, pos.y-20+Math.cos(g-Math.PI/4)*8);
-                        break;
-                    }
-                    case 1 : {
-                        ctx.fillStyle = "#F7CA18";
-                        ctx.lineTo(pos.x + Math.sin(g-Math.PI/4) * 8, pos.y-20+Math.cos(g-Math.PI/4)*8);
-                        break;
-                    }
-                    case 2 : {
-                        ctx.fillStyle = "#2574A9";
-                        ctx.lineTo(pos.x + Math.sin(g-Math.PI/4) * 8, pos.y-20+Math.cos(g-Math.PI/4)*8);
-                        break;
-                    }
-                    default : {
-                        ctx.fillStyle = "#03A678";
-                        ctx.lineTo(pos.x + Math.sin(g-Math.PI/4) * 8, pos.y-20+Math.cos(g-Math.PI/4) * 8);
-                        break;
-                    }
-                }
-
-                ctx.closePath();
-                ctx.fill();
-
-                pair = (pair + 1) % 4;
-            }
-
-            this.windMills[i].act();
-        }
-
-
-        ctx.save();
-        this.smokes.forEach((smoke) => {
-            ctx.globalAlpha = 0.0225 - smoke.pos.distance(new Vector(this.viewPortWidth / 2 - 5 * smoke.scale, this.viewPortHeight / 2 - this.viewPortWidth * 0.11)) / (this.viewPortHeight / 2 - this.viewPortWidth * 0.11) / 40;
-
-            ctx.drawImage(this.smokeImage, smoke.pos.x, smoke.pos.y, 5 * smoke.scale, 5 * smoke.scale);
-
-            smoke.act();
-        });
-
-        ctx.restore();
-
-        requestAnimationFrame(this.renderAnimations.bind(this, ctx));
+        this.renderer = requestAnimationFrame(this.renderAnimations.bind(this, ctx));
     }
 }
 
-export default render;
+export default animator;

@@ -76,7 +76,7 @@ class CanvasDisplay {
         return {
             step:
                 function() {
-                    val = 0.5*(1-Math.cos(2 * Math.PI * (n++) / steps));
+                    val = 0.5 * (1 - Math.cos(2 * Math.PI * (n++) / steps));
                 },
             get:
                 function() {

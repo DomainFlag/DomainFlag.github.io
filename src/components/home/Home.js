@@ -1,7 +1,7 @@
 import React from 'react';
 import {Component} from 'react';
 
-import render from './Animation';
+import animator from './Animation';
 
 import background from "../../resources/home/stardust.jpg";
 import cv from "./../../assets/resume.pdf";
@@ -22,16 +22,29 @@ export class Home extends Component {
             display : true
         };
 
+        this.animator = null;
         this.component = React.createRef();
         this.rootAnimation = React.createRef();
     }
 
     componentDidMount = () => {
+        this.draw();
+    };
+
+    draw = () => {
         let viewPortHeight = this.component.current.clientHeight;
         let viewPortWidth = Math.max(document.documentElement.scrollWidth, document.documentElement.offsetWidth,
             document.documentElement.clientWidth);
 
-        render(this.rootAnimation, viewPortWidth, viewPortHeight);
+        if(this.animator == null) {
+            this.animator = animator(this.rootAnimation)
+        }
+
+        this.animator.render(viewPortWidth, viewPortHeight);
+    };
+
+    onResizeEvent = (event) => {
+        this.draw();
     };
 
     componentDidUpdate = () => {

@@ -1,7 +1,9 @@
+import Renderer from "../models/Renderer";
+
 const WOBBLE_EFFECT = 0.05;
 
-let render = (rootAnimation, viewPortWidth, viewPortHeight) => {
-    new CanvasDisplay(rootAnimation, viewPortWidth, viewPortHeight);
+let animator = (rootAnimation) => {
+    return new Night(rootAnimation);
 };
 
 class Color {
@@ -19,20 +21,21 @@ class Color {
 const COLORS = [new Color(3, 97, 75), new Color(192, 15.2, 93.5), new Color(281, 46.2, 74.5)];
 
 class Star {
-    constructor(canvasDisplay, index) {
-        this.canvasDisplay = canvasDisplay;
 
-        this.positionX = Math.ceil(Math.random() * this.canvasDisplay.viewPortWidth);
-        this.positionY = Math.ceil(Math.random() * this.canvasDisplay.viewPortHeight);
-        this.maxRadius = Math.random() * 3 + 1.5;
+    set = (viewPortWidth, viewPortHeight) => {
+        this.viewPortWidth = viewPortWidth;
+        this.viewPortHeight = viewPortHeight;
+
+        this.positionX = Math.ceil(Math.random() * viewPortWidth);
+        this.positionY = Math.ceil(Math.random() * viewPortHeight);
+        this.maxRadius = Math.random() * 2.15 + 1.15;
         this.radius = 0.0;
 
         this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
 
         this.life = Math.floor(Math.random() * 100 + 200);
         this.maturity = "young";
-        this.index = index;
-    }
+    };
 
     act = () => {
         if(this.maturity === "young") {
@@ -42,12 +45,8 @@ class Star {
         } else if(this.maturity === "old") {
             this.dimming();
         } else {
-            this.lifeCycle();
+            this.set(this.viewPortWidth, this.viewPortHeight);
         }
-    };
-
-    lifeCycle = () => {
-        this.canvasDisplay.stars[this.index] = new Star(this.canvasDisplay, this.index);
     };
 
     lighting = () => {
@@ -90,37 +89,49 @@ class Star {
     }
 }
 
-class CanvasDisplay {
-    constructor(rootAnimation, viewPortWidth, viewPortHeight) {
-        this.canvas = document.createElement("canvas");
-        this.ctx = this.canvas.getContext("2d");
-
-        rootAnimation.current.appendChild(this.canvas, rootAnimation.current.firstChild);
+class Night extends Renderer {
+    constructor(rootAnimation) {
+        super(rootAnimation);
 
         this.backgroundCanvas = document.createElement("canvas");
         this.backgroundCtx = this.backgroundCanvas.getContext("2d");
 
         rootAnimation.current.appendChild(this.backgroundCanvas, rootAnimation.current.lastChild);
 
-        this.viewPortWidth = viewPortWidth;
-        this.viewPortHeight = viewPortHeight;
+        this.stars = [];
+        for(let i = 0; i < 125; i++) {
+            let star = new Star();
 
+            this.stars.push(star);
+        }
+
+        this.thread = [];
+        for(let i = 0; i < 15; i += (Math.random() * 2 + 1)) {
+            this.thread.push({
+                index : i,
+                height : Math.random()
+            });
+        }
+    };
+
+    render = (viewPortWidth, viewPortHeight) => {
+        this.adapt(viewPortWidth, viewPortHeight);
         this.setCanvasDimensions();
 
-        this.stars = [];
-
-        for(let i = 0; i < 50; i++) {
-            this.stars.push(new Star(this, i));
+        for(let i = 0; i < this.stars.length; i++) {
+            this.stars[i].set(viewPortWidth, viewPortHeight);
         }
 
         this.createBackgroundStyle(this.backgroundCtx);
+
+        if(this.renderer != null) {
+            cancelAnimationFrame(this.renderer);
+        }
+
         this.renderAnimations(this.ctx);
-    }
+    };
 
     setCanvasDimensions = () => {
-        this.canvas.width = this.viewPortWidth;
-        this.canvas.height = this.viewPortHeight;
-
         this.backgroundCanvas.width = this.viewPortWidth;
         this.backgroundCanvas.height = this.viewPortHeight;
     };
@@ -136,8 +147,8 @@ class CanvasDisplay {
 
         ctx.moveTo(0, this.viewPortHeight - 500);
 
-        for(let i = 0; i < 15; i += (Math.random() * 2 + 1)) {
-            ctx.lineTo(this.viewPortWidth / 10 * i, (this.viewPortHeight - (Math.random() * 80 + 40)));
+        for(let i = 0; i < this.thread.length; i++) {
+            ctx.lineTo(this.viewPortWidth / 10 * this.thread[i].index, (this.viewPortHeight - (this.thread[i].height * 80 + 40)));
         }
 
         ctx.lineTo(this.viewPortWidth, this.viewPortHeight - 120);
@@ -150,21 +161,19 @@ class CanvasDisplay {
     };
 
     renderAnimations = (ctx) => {
-        if(render) {
-            ctx.fillStyle = "rgba(0, 0, 0, 0)";
-            ctx.clearRect(0, 0, this.viewPortWidth, this.viewPortHeight);
+        ctx.fillStyle = "rgba(0, 0, 0, 0)";
+        ctx.clearRect(0, 0, this.viewPortWidth, this.viewPortHeight);
 
-            ctx.fillStyle = "#ecf0f1";
-            this.stars.forEach(function(star) {
-                star.render(ctx);
-            }, this);
+        ctx.fillStyle = "#ecf0f1";
+        this.stars.forEach(function(star) {
+            star.render(ctx);
+        }, this);
 
-            ctx.restore();
-            ctx.fill();
-        }
+        ctx.restore();
+        ctx.fill();
 
-        requestAnimationFrame(this.renderAnimations.bind(this, ctx));
+        this.renderer = requestAnimationFrame(this.renderAnimations.bind(this, ctx));
     };
 }
 
-export default render;
+export default animator;

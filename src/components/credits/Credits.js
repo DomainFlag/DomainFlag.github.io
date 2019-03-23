@@ -1,7 +1,7 @@
 import React from 'react';
 import {Component} from 'react';
 
-import render from './Animation';
+import animator from './Animation';
 
 import land from "../../resources/credits/home.svg";
 import boat_1 from "../../resources/credits/boat_1.png";
@@ -18,16 +18,27 @@ export class Credits extends Component {
             display : true
         };
 
+        this.animator = null;
         this.component = React.createRef();
+        this.pivot = React.createRef();
         this.rootAnimation = React.createRef();
     }
 
-    componentDidMount = () => {
+    draw = () => {
         let viewPortHeight = this.component.current.clientHeight;
-        let viewPortWidth = Math.max(document.documentElement.scrollWidth, document.documentElement.offsetWidth,
+        let viewPortWidth = Math.min(document.documentElement.scrollWidth, document.documentElement.offsetWidth,
             document.documentElement.clientWidth);
 
-        render(this.rootAnimation, viewPortWidth, viewPortHeight);
+
+        if(this.animator == null) {
+            this.animator = animator(this.rootAnimation);
+        }
+
+        this.animator.render(viewPortWidth, viewPortHeight, this.pivot);
+    };
+
+    onResizeEvent = (event) => {
+        this.draw();
     };
 
     componentDidUpdate = () => {
@@ -55,7 +66,7 @@ export class Credits extends Component {
         <section id="footer" ref={this.component} style={{display : (this.state.display ? "flex" : "none")}}>
             <div id="footer_background" ref={this.rootAnimation}/>
 
-            <img id="land" src={land} alt="Home Land"/>
+            <img id="land" src={land} alt="Home Land" ref={this.pivot} onLoad={this.draw}/>
 
             <div className="footer_container">
                 <img id="boat_1" src={boat_1} alt="Moving boat"/>
@@ -65,9 +76,12 @@ export class Credits extends Component {
                 <div className="footer_row"/>
                 <div className="footer_row">
                     <div className="footer_details">
-                        <h1 className="contact_text">No more scrolling, ugh... do some clicking instead.</h1>
-                        <a href="mailto:Cchivriga@hotmail.com"
-                           className="contact_address">Contact Me</a>
+                        <h1 className="contact_text">
+                            No more scrolling, ugh... do some clicking instead.
+                        </h1>
+                        <a href="mailto:Cchivriga@hotmail.com" className="contact_address">
+                            Contact Me
+                        </a>
                     </div>
                 </div>
             </div>

@@ -25,9 +25,7 @@ export const projects = [{
         header : "Jiggles",
         logo : logo1,
         tools : ["Android", "Java", "Python", "JavaScript", "MongoDB"],
-        direction : {
-            flexDirection : "row"
-        },
+        direction : null,
         content : ["Interactive streaming and social media service designed and built on " +
         " Android that brings music lovers together by connecting users through content " +
         " sharing, by providing access to millions of songs and many more…"
@@ -171,7 +169,7 @@ export const projects = [{
 }, {
     style : {
         accent : {
-            color : "#FFB3A7"
+            color : "#f67280"
         }
     },
     link : "https://github.com/DomainFlag/StarCannon",
@@ -179,9 +177,7 @@ export const projects = [{
         header : "StarCannon",
         logo : logo2,
         tools : ["C++", "Java", "OpenGL", "Javascript", "WebGL"],
-        direction : {
-            flexDirection : "row"
-        },
+        direction : null,
         content : [
             "A cross-platform 3D game engine for Desktop/Web platform built on " +
             "OpenGL/WebGL, that simulates procedural generated terrain combining game " +
@@ -192,7 +188,7 @@ export const projects = [{
                 height : "100vh"
             },
             accent : {
-                color : "#FFB3A7"
+                color : "#f67280"
             },
             gradient : gradient4
         },
@@ -221,7 +217,7 @@ export const projects = [{
                 height : "100vh"
             },
             accent : {
-                color : "#FFB3A7"
+                color : "#f67280"
             },
             gradient : gradient3
         },
