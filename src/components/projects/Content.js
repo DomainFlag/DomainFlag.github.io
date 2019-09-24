@@ -1,10 +1,10 @@
 import logo1 from "../../resources/projects/logo-icon.svg";
 import gradient1 from "../../resources/projects/gradient.png";
-import front_2 from "../../resources/projects/front_1_2.png";
+import highlights from "../../resources/projects/highlights.png";
 import front_1 from "../../resources/projects/front_1.png";
 import design_1 from "../../resources/projects/design_3.png";
 import gradient3 from "../../resources/projects/gradient-blue.png";
-import front_2_1 from "../../resources/projects/front_2_1.png";
+import social_thread from "../../resources/projects/social_thread.png";
 import gradient2 from "../../resources/projects/gradient-violet.png";
 import gradient4 from "../../resources/projects/gradient-black.png";
 import logo2 from "../../resources/projects/logo.png";
@@ -17,13 +17,13 @@ const images = require.context('./../../resources/projects/albums', false, /\.(p
 export const projects = [{
     style : {
         accent : {
-            color : "#FFB61E"
+            color : "#C3272B"
         }
     },
     link : "https://github.com/DomainFlag/Jiggles",
+    logo : logo1,
     steps : [{
         header : "Jiggles",
-        logo : logo1,
         tools : ["Android", "Java", "Python", "JavaScript", "MongoDB"],
         direction : null,
         content : ["Interactive streaming and social media service designed and built on " +
@@ -39,7 +39,7 @@ export const projects = [{
             },
             gradient : gradient1
         },
-        images : [front_2, front_1, design_1]
+        images : [highlights, front_1, design_1]
     }, {
         title : "More than that",
         content : ["Rich and abundant content of music remains still not known to the user, " +
@@ -102,7 +102,7 @@ export const projects = [{
             },
             gradient : gradient3
         },
-        images : [front_2_1]
+        images : [social_thread]
     }, {
         title : "As good as any music player",
         direction : {
@@ -169,14 +169,14 @@ export const projects = [{
 }, {
     style : {
         accent : {
-            color : "#f67280"
+            color : "#2B334E"
         }
     },
     link : "https://github.com/DomainFlag/StarCannon",
+    logo : logo2,
     steps : [{
         header : "StarCannon",
-        logo : logo2,
-        tools : ["C++", "Java", "OpenGL", "Javascript", "WebGL"],
+        tools : ["Java", "C++", "JavaScript", "OpenGL", "WebGL"],
         direction : null,
         content : [
             "A cross-platform 3D game engine for Desktop/Web platform built on " +

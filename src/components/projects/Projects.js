@@ -10,51 +10,33 @@ import render from "./Animation";
 
 import "./Projects.sass";
 
-const snippetFull = {
-    maxHeight: "100%",
-    maxWidth: "100%"
-};
 
-const snippetPrimary = {
-    active : {
-        zIndex : 1,
-        maxHeight: "520px",
-        maxWidth: "260px",
-        transform: "translate(-50%, -50%)"
-    },
-    normal : {
-        zIndex : 1,
-        maxHeight : "440px",
-        maxWidth : "220px",
-        transform : "translate(-50%, -50%)"
-    }
-};
+class MultiImageContainer extends Component {
 
-const snippetSecondary = {
-    active : {
-        zIndex : 0,
-        maxHeight : "440px",
-        maxWidth : "220px",
-        transform : "translate(-50%, calc(-50% + 25px))"
-    },
-    normal : {
-        zIndex : 0,
-        maxHeight : "360px",
-        maxWidth : "180px",
-        transform : "translate(-50%, calc(-50% + 25px))"
-    }
-};
+    static RATIO_ACTIVE = 150;
+    static RATIO_INACTIVE = 125;
 
-const videoStyle = {
-    native : {
-        maxHeight : "560px",
-        maxWidth : "280px"
-    },
-    desktop : {
-        maxHeight : "480px",
-        maxWidth : "720px"
-    }
-};
+    render = () => (
+        <div className="column_container">
+            {
+                this.props.images.map((image, index) => {
+                    let active = this.props.active ? "active" : "normal";
+                    let styleClassName = "img_portfolio " + (index % 2 === 1 ? "snippet-primary-" : "snippet-secondary-") + active;
+                    let ratio = this.props.active ? MultiImageContainer.RATIO_ACTIVE : MultiImageContainer.RATIO_INACTIVE;
+
+                    // Offset from center
+                    let style = {
+                        left: "calc(50% - " + (ratio * (index - 1) + "px")
+                    };
+
+                    return (
+                        <img key={index} className={styleClassName} style={style} src={image}  alt="showcase img"/>
+                    )
+                })
+            }
+        </div>
+    )
+}
 
 class Showcase extends Component {
 
@@ -194,7 +176,7 @@ class Renderer extends Component {
                 ...(this.props.step.style.background && this.props.step.style.background),
                 ...(this.props.active && this.props.step.style.size)
             }}>
-                <div className="row_container" style={this.props.step.direction}>
+                <div className="row_container">
                     <div className="column_container">
                         <div className="text_container">
                             {
@@ -239,29 +221,18 @@ class Renderer extends Component {
                         </div>
                     </div>
                     {
-                        lenImages > 0 ? (
+                        (lenImages === 1) ? (
                             <div className="column_container">
-                                {
-                                    this.props.step.images.map((image, index) => {
-                                        let active = this.props.active ? "active" : "normal";
-                                        let style = lenImages === 1 ? "snippet-full" :
-                                            (index % 2 === 1 ? "snippet-primary-" : "snippet-secondary-") + active;
-
-                                        return (
-                                            <img key={index} className={(lenImages > 1 ? "img_portfolio " : "") + style} style={{
-                                                left: lenImages > 1 && (90 * (index + 1 + ((this.props.active && lenImages !== 1) && (index - 1) * 0.4)) / (lenImages + 1) + "%"),
-                                                position : (lenImages > 1 && "absolute")
-                                            }} src={image}  alt="showcase img"/>
-                                        )
-                                    })
-                                }
+                                <img key={this.props.step.images[0]} className="snippet-full"
+                                     src={this.props.step.images[0]}  alt="showcase img"/>
                             </div>
+                        ) : (lenImages > 1) ? (
+                            <MultiImageContainer images={this.props.step.images} active={this.props.active}/>
                         ) : this.props.step.videos ? (
                             <div className="column_container">
                                 {
                                     this.props.step.frame && ["fast", "slow"].map((pulse) => (
-                                        <div key={pulse} className={"container_pulse" +
-                                        " container_pulse_" + pulse}/>
+                                        <div key={pulse} className={"container_pulse" + " container_pulse_" + pulse}/>
                                     ))
                                 }
                                 <div className="portfolio_interaction">
@@ -270,7 +241,7 @@ class Renderer extends Component {
                                             <img className="portfolio_bar" src={bar_top} alt="item frame"/>
                                         )
                                     }
-                                    <video ref={this.frame} className="video_portfolio" style={videoStyle[this.props.step.videoStyle]}>
+                                    <video ref={this.frame} className={"video_portfolio video-style-" + this.props.step.videoStyle}>
                                         <source src={this.props.step.videos[0]} type="video/mp4"/>
                                     </video>
                                     {
@@ -285,20 +256,17 @@ class Renderer extends Component {
                         )
                     }
                 </div>
-                {
-                    this.props.step.logo && <img className="brand_container" src={this.props.step.logo} alt="Project Logo"/>
-                }
             </div>
         )
     };
 }
 
 class Project extends Component {
+
     constructor(props) {
         super(props);
 
         this.component = React.createRef();
-
         this.state = {
             step : 0,
             active : false
@@ -321,7 +289,7 @@ class Project extends Component {
             {
                 this.props.project.steps.map((step, index) => (
                     <Renderer key={"" + this.props.index + index} step={{...step}} stepLen={this.state.step} style={{...this.props.project.style}}
-                        overview={this.overview} visible={this.state.active || index === 0} active={this.state.active}/>
+                              overview={this.overview} visible={this.state.active || index === 0} active={this.state.active}/>
                 ))
             }
             {
@@ -331,15 +299,22 @@ class Project extends Component {
                     </div>
                 )
             }
-            <div className="project_other" style={{position : (this.state.active ? "fixed" : "absolute")}}>
-                <a href={this.props.project.link} className="project_action_link" target="_blank" rel="noopener noreferrer">
-                    Github
-                </a>
-                {
-                    this.state.active && (
-                        <p className="project_action_text" onClick={this.overview.bind(this, false)}>Close</p>
-                    )
-                }
+            <div className="project_other">
+                <div className="project-container">
+                    {
+                        this.props.project.logo && <img className="brand_asset" src={this.props.project.logo} alt="Project Logo"/>
+                    }
+                </div>
+                <div className="project-container">
+                    <a href={this.props.project.link} className="project_action_link" target="_blank" rel="noopener noreferrer">
+                        Github
+                    </a>
+                    {
+                        this.state.active && (
+                            <p className="project_action_text" onClick={this.overview.bind(this, false)}>Close</p>
+                        )
+                    }
+                </div>
             </div>
         </div>
     );

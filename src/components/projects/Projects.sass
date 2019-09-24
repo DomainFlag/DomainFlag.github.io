@@ -18,13 +18,43 @@
     .text_container_subheader
         font-size: 17px
 
-    .text_container_paragraphvideo_portfolio
-        font-size: 18px
-        text-align: center
+    .text_container_paragraph
+        font-size: 20px
+        text-align: center !important
 
     .img_container
         width: 70%
         height: auto
+
+    .snippet-primary-normal
+        max-height : 220px
+        max-width : 110px
+
+    .snippet-secondary-normal
+        max-height : 180px
+        max-width : 90px
+
+    .snippet-primary-active
+        max-height: 260px
+        max-width: 130px
+
+    .snippet-secondary-active
+        max-height: 220px
+        max-width: 110px
+
+    .portfolio_bar
+        max-width: 140px
+
+    .video-style-native
+        max-height: 280px
+        max-width: 140px
+
+    .video-style-desktop
+        max-height: 240px
+        max-width: 360px
+
+    .column_container
+        width: 100%
 
 @media screen and (min-width: 1024px)
     #projects
@@ -51,8 +81,38 @@
         font-size: 14px
 
     .text_container_paragraph
-        font-size: 16px
-        text-align: left
+        font-size: 18px
+        text-align: left !important
+
+    .snippet-primary-normal
+        max-height : 440px
+        max-width : 220px
+
+    .snippet-secondary-normal
+        max-height : 360px
+        max-width : 180px
+
+    .snippet-primary-active
+        max-height: 520px
+        max-width: 260px
+
+    .snippet-secondary-active
+        max-height : 440px
+        max-width : 220px
+
+    .portfolio_bar
+        max-width: 280px
+
+    .video-style-native
+        max-height : 560px
+        max-width : 280px
+
+    .video-style-desktop
+        max-height : 480px
+        max-width : 720px
+
+    .column_container
+        height: 100%
 
 .snippet-full
     max-height: 80%
@@ -60,35 +120,19 @@
 
 .snippet-primary-active
     z-index : 1
-    max-height: 520px
-    max-width: 260px
     transform: translate(-50%, -50%)
 
 .snippet-primary-normal
     z-index : 1
-    max-height : 440px
-    max-width : 220px
     transform : translate(-50%, -50%)
 
 .snippet-secondary-active
     z-index : 0
-    max-height : 440px
-    max-width : 220px
     transform : translate(-50%, calc(-50% + 25px))
 
 .snippet-secondary-normal
     z-index : 0
-    max-height : 360px
-    max-width : 180px
     transform : translate(-50%, calc(-50% + 25px))
-
-.video-style-native
-    max-height : 560px
-    max-width : 280px
-
-.video-style-desktop
-    max-height : 480px
-    max-width : 720px
 
 #projects
     display: flex
@@ -213,7 +257,6 @@
     align-items: center
     flex-direction: column
     flex: 1
-    height: 100%
 
 .project_overview
     display: flex
@@ -228,14 +271,32 @@
     transform: translate(-50%, -150%)
 
 .project_other
+    display: flex
+    position: absolute
+    justify-content: space-between
+    align-items: center
+    flex-direction: row
+    width: 100%
+    top: 0
+    left: 0
+    padding: 32px 40px
     z-index : 1
+
+.project-container
     display: flex
     justify-content: center
     align-items: center
     flex-direction: row
-    top: 16px
-    left: calc(100% - 48px)
-    transform: translate(-100%, 50%)
+
+.brand_asset
+    width: 48px
+    height: auto
+
+.project_action
+    display: flex
+    justify-content: center
+    align-items: center
+    flex-direction: row
 
 .project_action_link
     margin: 0 24px
@@ -283,19 +344,6 @@
     transform: scale(1.15)
     opacity: 1.0
 
-.brand_container
-    position: absolute
-    display: flex
-    top: 16px
-    left: 16px
-    opacity: 1.0
-    transform: translate(50%, 50%)
-    justify-content: center
-    align-items: center
-    flex-direction: column
-    width: 48px
-    height: auto
-
 .showcase_item
     position: absolute
     transition: opacity 2s ease-in-out
@@ -314,10 +362,6 @@
     justify-content: center
     align-items: center
     flex-direction: column
-
-.portfolio_bar
-    position: relative
-    max-width: 280px
 
 .video_portfolio
     position: relative
@@ -381,7 +425,6 @@
 .text_container_paragraph
     margin: 20px 0
     color: white
-    font-size: 18px
     font-family: "Brandon Grotesque Regular", sans-serif
 
 .slash_style

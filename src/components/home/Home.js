@@ -15,11 +15,15 @@ const imageStyle = {
 };
 
 export class Home extends Component {
+
+    static BIRTHDAY_DATE_SECRET = "02/21/1997";
+
     constructor(props) {
         super(props);
 
         this.state = {
-            display : true
+            display : true,
+            age : this.computeAge()
         };
 
         this.animator = null;
@@ -68,6 +72,13 @@ export class Home extends Component {
         });
     };
 
+    computeAge = () => {
+        let birth = new Date(Home.BIRTHDAY_DATE_SECRET);
+        let offset = (new Date()).getTime() - birth.getTime();
+
+        return Math.floor(offset / 1000 / 3600 / 24 / 365);
+    };
+
     render = () => (
         <section id="home" ref={this.component} style={{display : (this.state.display ? "flex" : "none")}}>
             <div id="home_background" style={imageStyle}/>
@@ -90,7 +101,8 @@ export class Home extends Component {
             <div id="welcoming_text">
                 <div id="welcoming_text_container">
                     <h1 id="welcoming_text_header">Hi! I'm Cristian.</h1>
-                    <h1 id="welcoming_text_subheader">I am a 21 years old CS student about to graduate, passionate about software development and driven to build things that matter.</h1>
+                    <h1 id="welcoming_text_subheader">I am a { this.state.age } years old CS student about to graduate,
+                        passionate about software development and driven to build things that matter.</h1>
                 </div>
             </div>
         </section>
