@@ -44,7 +44,6 @@ class CanvasDisplay {
         this.ctx = this.canvas.getContext("2d");
 
         this.opacity = this.easeInOut(CanvasDisplay.steps);
-
         this.noise = new Perlin();
 
         rootAnimation.current.appendChild(this.canvas);
@@ -99,7 +98,7 @@ class CanvasDisplay {
                 let ln = grader.step();
                 let alpha = 0.075 * this.opacity.get();
 
-                ctx.strokeStyle = "rgba(50, 50, 50, " + alpha + ")";
+                ctx.strokeStyle = "rgba(0, 0, 0, " + alpha + ")";
                 ctx.moveTo(ln.x1, ln.y1);
                 ctx.lineTo(ln.x2, ln.y2);
             }

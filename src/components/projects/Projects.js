@@ -13,24 +13,80 @@ import "./Projects.sass";
 
 class MultiImageContainer extends Component {
 
-    static RATIO_ACTIVE = 150;
-    static RATIO_INACTIVE = 125;
+    static RATIO_ACTIVE = 95;
+    static RATIO_INACTIVE = 70;
+    static RATIO_HEIGHT = 50;
+
+    constructor(props) {
+        super(props);
+
+        this.reffs = this.props.images.map(() => React.createRef());
+        this.loaders = {
+            promises: [],
+            resolvers: []
+        };
+
+        for(let g = 0; g < this.props.images.length; g++) {
+            this.loaders.promises.push(new Promise(
+                (resolve, reject) => {
+                    this.loaders.resolvers.push(resolve);
+                }
+            ))
+        }
+
+        this.state = {
+            sizeWidth: 0,
+            sizeHeight: 0,
+        };
+
+        Promise.all(this.loaders.promises).then(this.onLoad);
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(this.props.active !== prevProps.active) {
+            this.onLoad();
+        }
+    }
+
+    onLoad = () => {
+        let sizes = {
+            sizeWidth: (this.reffs[0].current.clientWidth + this.reffs[1].current.clientWidth) / 2,
+            sizeHeight: (this.reffs[1].current.clientHeight - this.reffs[0].current.clientHeight) / 2
+        };
+
+        if(sizes.sizeWidth !== this.state.sizeWidth || sizes.sizeHeight !== this.state.sizeHeight) {
+            this.setState(sizes);
+        }
+    };
+
+    onResizeEvent = () => {
+        this.onLoad();
+    };
 
     render = () => (
         <div className="column_container">
             {
                 this.props.images.map((image, index) => {
                     let active = this.props.active ? "active" : "normal";
-                    let styleClassName = "img_portfolio " + (index % 2 === 1 ? "snippet-primary-" : "snippet-secondary-") + active;
+                    let styleClassName = (index % 2 === 1 ? "snippet-primary-" : "snippet-secondary-") + active;
+                    let stylePostClassName = "img_portfolio_post " + styleClassName;
+                    let styleActiveClassName = "img_portfolio " + styleClassName;
                     let ratio = this.props.active ? MultiImageContainer.RATIO_ACTIVE : MultiImageContainer.RATIO_INACTIVE;
+                    let sizeWidth = this.state.sizeWidth * ratio / 100;
+                    let sizeHeight = this.state.sizeHeight * MultiImageContainer.RATIO_HEIGHT / 100;
 
                     // Offset from center
                     let style = {
-                        left: "calc(50% - " + (ratio * (index - 1) + "px")
+                        left: "calc(50% + " + (sizeWidth * (index - 1) + "px"),
+                        top: "calc(50% + " + (sizeHeight * Math.abs(index - 1) + "px"),
                     };
 
                     return (
-                        <img key={index} className={styleClassName} style={style} src={image}  alt="showcase img"/>
+                        <div className="img_portfolio_asset" key={image}>
+                            <img className={stylePostClassName} ref={this.reffs[index]}
+                                 onLoad={this.loaders.resolvers[index]} src={image}  alt="showcase img"/>
+                            <img className={styleActiveClassName} style={style} src={image}  alt="showcase img"/>
+                        </div>
                     )
                 })
             }
@@ -43,8 +99,8 @@ class Showcase extends Component {
     static rowLens = [5, 7];
     static offset = 40;
     static deviation = 20;
-    static size = 75;
     static prob = 0.2;
+    static size = 75;
     static threshold = 1 / Showcase.prob - 1;
 
     constructor(props) {
@@ -102,9 +158,7 @@ class Showcase extends Component {
                             + (((col + row) % 2 === 1) - 0.5) * 2 * Showcase.deviation;
 
                         let style = {
-                            width : Showcase.size + "px",
-                            height : Showcase.size + "px",
-                            opacity : (this.state.distribution.has(item) ? 1.0 : 0.1),
+                            opacity : (this.state.distribution.has(item) ? 0.8 : 0.1),
                             transform : "translate(" + translationX + "px, " + translationY + "px)"
                         };
 
@@ -126,6 +180,7 @@ class Renderer extends Component {
 
         this.renderer = React.createRef();
         this.frame = React.createRef();
+        this.multiImageContainer = React.createRef();
     }
 
     componentDidMount = () => {
@@ -143,6 +198,12 @@ class Renderer extends Component {
 
             if(this.props.active)
                 this.frame.current.pause();
+        }
+    };
+
+    onResizeEvent = () => {
+        if(this.multiImageContainer.current !== null) {
+            this.multiImageContainer.current.onResizeEvent();
         }
     };
 
@@ -168,6 +229,12 @@ class Renderer extends Component {
     render = () => {
         let lenImages = this.props.step.images.length;
 
+        let singleton = lenImages === 0 && !this.props.step.videos && !this.props.step.showcase;
+        let style = {
+            width: singleton ? "75%" : "100%",
+            flex: singleton ? "initial" : "1"
+        };
+
         return (
             <div className="row" ref={this.renderer} style={{
                 display : this.props.visible ? "flex" : "none",
@@ -177,7 +244,7 @@ class Renderer extends Component {
                 ...(this.props.active && this.props.step.style.size)
             }}>
                 <div className="row_container">
-                    <div className="column_container">
+                    <div className="column_container" style={style}>
                         <div className="text_container">
                             {
                                 this.props.step.header ? (
@@ -203,7 +270,6 @@ class Renderer extends Component {
                             {
                                 this.props.step.content.map((content, index) => (
                                     <p className="text_container_paragraph" key={index} style={{
-                                        width : lenImages === 0 && "75%",
                                         textAlign : this.props.step.type ? "center" : "left",
                                         ...(this.props.step.style.text && this.props.step.style.text)
                                     }}>
@@ -227,12 +293,12 @@ class Renderer extends Component {
                                      src={this.props.step.images[0]}  alt="showcase img"/>
                             </div>
                         ) : (lenImages > 1) ? (
-                            <MultiImageContainer images={this.props.step.images} active={this.props.active}/>
+                            <MultiImageContainer images={this.props.step.images} ref={this.multiImageContainer} active={this.props.active}/>
                         ) : this.props.step.videos ? (
                             <div className="column_container">
                                 {
                                     this.props.step.frame && ["fast", "slow"].map((pulse) => (
-                                        <div key={pulse} className={"container_pulse" + " container_pulse_" + pulse}/>
+                                        <div key={pulse} className={"container_pulse container_pulse_" + pulse}/>
                                     ))
                                 }
                                 <div className="portfolio_interaction">
@@ -266,7 +332,7 @@ class Project extends Component {
     constructor(props) {
         super(props);
 
-        this.component = React.createRef();
+        this.renderers = this.props.project.steps.map(() => React.createRef());
         this.state = {
             step : 0,
             active : false
@@ -284,11 +350,18 @@ class Project extends Component {
         this.props.onFullViewComponent(state);
     };
 
+    onResizeEvent = () => {
+        this.renderers.forEach((renderer) => {
+            renderer.current.onResizeEvent();
+        });
+    };
+
     render = () => (
         <div className="row_steps" style={{display : (this.props.onVisible ? "flex" : "none")}}>
             {
                 this.props.project.steps.map((step, index) => (
-                    <Renderer key={"" + this.props.index + index} step={{...step}} stepLen={this.state.step} style={{...this.props.project.style}}
+                    <Renderer key={"" + this.props.index + index} step={{...step}} stepLen={this.state.step}
+                              style={{...this.props.project.style}} ref={this.renderers[index]}
                               overview={this.overview} visible={this.state.active || index === 0} active={this.state.active}/>
                 ))
             }
@@ -331,6 +404,7 @@ export class Projects extends Component {
             activeProjectOffset : 32
         };
 
+        this.components = projects.map(() => React.createRef());
         this.component = React.createRef();
         this.rootAnimation = React.createRef();
         this.scrollableContainer = React.createRef();
@@ -338,8 +412,10 @@ export class Projects extends Component {
         this.activeProject = React.createRef();
     }
 
-    onResizeEvent = (event) => {
-
+    onResizeEvent = () => {
+        this.components.forEach((component) => {
+            component.current.onResizeEvent();
+        })
     };
 
     componentDidMount = () => {
@@ -412,8 +488,9 @@ export class Projects extends Component {
                         {
                             projects.map((project, index) => (
                                 <Project
+                                    ref={this.components[index]}
                                     project={project}
-                                    key={index}
+                                    key={project.link}
                                     index={index}
                                     onVisible={index === this.state.activeProject}
                                     onFullViewComponent={this.onHighlightComponent}/>

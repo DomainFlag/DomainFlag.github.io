@@ -1,6 +1,8 @@
+@import "./../../style"
+
 @media screen and (min-width: 320px)
     #projects
-        height: 3350px
+        height: 3250px
 
     .row_container
         flex-direction: column
@@ -13,18 +15,69 @@
         text-align: center
 
     .text_container_header
-        font-size: 48px
+        font-size: 32px
+
+    .text_container_subheader
+        font-size: 12px
+
+    .text_container_header
+        text-align: center !important
+
+    .text_container_paragraph
+        text-align: justify !important
+        text-align-last: center
+
+    .text_container_paragraph
+        font-size: 16px
+
+    .img_container
+        width: 70%
+        height: auto
+
+    .snippet-primary-normal
+        max-height : 180px
+        max-width : 90px
+
+    .snippet-secondary-normal
+        max-height : 160px
+        max-width : 80px
+
+    .snippet-primary-active
+        max-height: 240px
+        max-width: 120px
+
+    .snippet-secondary-active
+        max-height: 220px
+        max-width: 100px
+
+    .portfolio_bar
+        max-width: 120px
+
+    .video-style-native
+        max-height: 220px
+        max-width: 120px
+
+    .video-style-desktop
+        max-height: 210px
+        max-width: 320px
+
+    .column_container
+        width: 100%
+
+    .snippet-full
+        max-width: 100%
+        height: auto
+
+@media screen and (min-width: 480px)
+
+    .text_container_header
+        font-size: 40px
 
     .text_container_subheader
         font-size: 17px
 
     .text_container_paragraph
         font-size: 20px
-        text-align: center !important
-
-    .img_container
-        width: 70%
-        height: auto
 
     .snippet-primary-normal
         max-height : 220px
@@ -35,12 +88,12 @@
         max-width : 90px
 
     .snippet-primary-active
-        max-height: 260px
-        max-width: 130px
+        max-height: 320px
+        max-width: 180px
 
     .snippet-secondary-active
-        max-height: 220px
-        max-width: 110px
+        max-height: 280px
+        max-width: 160px
 
     .portfolio_bar
         max-width: 140px
@@ -52,9 +105,6 @@
     .video-style-desktop
         max-height: 240px
         max-width: 360px
-
-    .column_container
-        width: 100%
 
 @media screen and (min-width: 1024px)
     #projects
@@ -75,14 +125,14 @@
         text-align: left
 
     .text_container_header
-        font-size: 38px
+        font-size: 48px
 
     .text_container_subheader
         font-size: 14px
 
-    .text_container_paragraph
-        font-size: 18px
+    .text_container_header, .text_container_paragraph
         text-align: left !important
+        text-align-last: left
 
     .snippet-primary-normal
         max-height : 440px
@@ -108,31 +158,24 @@
         max-width : 280px
 
     .video-style-desktop
-        max-height : 480px
-        max-width : 720px
+        max-height : 440px
+        max-width : 540px
 
     .column_container
         height: 100%
 
-.snippet-full
-    max-height: 80%
-    max-width: 80%
+    .snippet-full
+        max-width: 80%
+        height: auto
 
-.snippet-primary-active
+
+.snippet-primary-active, .snippet-primary-normal
     z-index : 1
     transform: translate(-50%, -50%)
 
-.snippet-primary-normal
-    z-index : 1
+.snippet-secondary-active, .snippet-secondary-normal
+    z-index : 0
     transform : translate(-50%, -50%)
-
-.snippet-secondary-active
-    z-index : 0
-    transform : translate(-50%, calc(-50% + 25px))
-
-.snippet-secondary-normal
-    z-index : 0
-    transform : translate(-50%, calc(-50% + 25px))
 
 #projects
     display: flex
@@ -189,7 +232,7 @@
 .progress
     position: absolute
     font-weight: bold
-    font-family: "Brandon Grotesque", sans-serif
+    font-family: $font_family
     top: 100%
     left: 50%
     transform: translate(-50%, 50%)
@@ -303,7 +346,7 @@
     color: white
     opacity: 0.8
     font-size: 18px
-    font-family: "Brandon Grotesque Regular", sans-serif
+    font-family: $font_family
     cursor: pointer
     text-decoration: none
 
@@ -313,7 +356,7 @@
 .project_action_text
     color: white
     font-size: 20px
-    font-family: "Brandon Grotesque Regular", sans-serif
+    font-family: $font_family
     font-weight: bold
     animation: glow 1s ease-out alternate-reverse infinite
     transform-origin: center
@@ -346,16 +389,28 @@
 
 .showcase_item
     position: absolute
-    transition: opacity 2s ease-in-out
-    opacity: 1.0
+    transition: opacity 4s ease-in-out
+    opacity: 0.8
     top: 50%
     left: 50%
+    width: 75px
+    height: 75px
+
+.img_portfolio_asset
+    display: flex
+    position: relative
 
 .img_portfolio
     position: absolute
     top: 50%
     -webkit-transition: max-height 300ms ease-in-out, max-width 300ms ease-in-out, left 300ms ease-in-out
     transition: max-height 300ms ease-in-out, max-width 300ms ease-in-out, left 300ms ease-in-out
+
+.img_portfolio_post
+    position: absolute
+    visibility: hidden
+    top: 50%
+    z-index: -1
 
 .portfolio_interaction
     display: flex
@@ -365,7 +420,6 @@
 
 .video_portfolio
     position: relative
-    margin: -2px 0
 
 .container_pulse
     position: absolute
@@ -405,13 +459,14 @@
 
 .text_container
     display: flex
-    width: 85%
     flex-direction: column
+    justify-content: center
+    align-content: center
+    width: 85%
 
 .text_container_header
     color: white
-    font-size: 44px
-    font-family: "Brandon Grotesque Regular", sans-serif
+    font-family: Reef, sans-serif
     font-weight: bold
 
 .text_container_subheader
@@ -419,18 +474,17 @@
     color: white
     opacity: 0.8
     font-weight: 100
-    font-size: 14px
-    font-family: "Brandon Grotesque Regular", sans-serif
+    font-family: $font_family
 
 .text_container_paragraph
     margin: 20px 0
     color: white
-    font-family: "Brandon Grotesque Regular", sans-serif
+    font-family: $font_family
 
 .slash_style
     position: relative
-    font-size: 10px
-    top: -1px
+    font-size: 12px
+    top: -0.5px
     margin: 0 1px
 
 .text_container_link
@@ -439,7 +493,7 @@
     color: white
     opacity: 0.8
     font-size: 18px
-    font-family: "Brandon Grotesque Regular", sans-serif
+    font-family: $font_family
     text-decoration: none
     animation: glow-link 1s ease-out alternate-reverse infinite
 

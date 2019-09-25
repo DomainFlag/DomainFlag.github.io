@@ -20,18 +20,17 @@ class Smoke {
         this.ratio = ratio;
         this.scale = Smoke.size + Math.random() * Smoke.size;
         this.origin = new Vector(
-            this.width / 2 + (this.scale - (Smoke.size + Smoke.growth) / 2) - Smoke.offset / ratio,
+            this.width / 2 - this.scale / 2,
             this.height / 2 - this.width * 0.115 / this.ratio
         );
 
         let sign = Math.random() < 0.5 ? -1 : 1;
 
         let y = Math.random() * (this.height / 2 - this.width * 0.115 / ratio);
-        let x = this.width / 2 - Smoke.offset /ratio + this.scale - (Smoke.size + Smoke.growth) / 2 +
-            sign * ((this.height / 2 - y) * Math.tan(Math.random() / 10));
+        let x = this.width / 2 - this.scale / 2 + sign * ((this.height / 2 - y) * Math.tan(Math.random() / 10));
 
         this.pos = new Vector(x, y);
-        this.velocity = new Vector(Math.random() / 10 - 0.05, -(0.1 + Math.random() / 8));
+        this.velocity = new Vector(Math.random() / 10 - 0.05, - (0.1 + Math.random() / 8));
     };
 
     act = () => {

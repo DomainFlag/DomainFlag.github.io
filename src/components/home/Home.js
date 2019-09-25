@@ -4,7 +4,7 @@ import {Component} from 'react';
 import animator from './Animation';
 
 import background from "../../resources/home/stardust.jpg";
-import cv from "./../../assets/resume.pdf";
+import cv from "../../assets/resume.pdf";
 
 import "./Home.sass";
 
