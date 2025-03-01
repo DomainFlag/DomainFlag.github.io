@@ -101,8 +101,9 @@ export class Home extends Component {
             <div id="welcoming_text">
                 <div id="welcoming_text_container">
                     <h1 id="welcoming_text_header">Hi! I'm Cristian.</h1>
-                    <h1 id="welcoming_text_subheader">I am a { this.state.age } years old CS student about to graduate,
-                        passionate about software development and driven to build things that matter.</h1>
+                    <h1 id="welcoming_text_subheader">
+                        I am an Applied Research Engineer with a strong software development foundation, passionate about solving impactful problems at the intersection of Machine Learning and Deep Learning.
+                    </h1>
                 </div>
             </div>
         </section>
