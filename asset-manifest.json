@@ -1,7 +1,7 @@
 {
-  "main.css": "/static/css/main.95e2ce26.chunk.css",
-  "main.js": "/static/js/main.e1dde78c.chunk.js",
-  "main.js.map": "/static/js/main.e1dde78c.chunk.js.map",
+  "main.css": "/static/css/main.5fe10bcb.chunk.css",
+  "main.js": "/static/js/main.78516e07.chunk.js",
+  "main.js.map": "/static/js/main.78516e07.chunk.js.map",
   "static/js/1.30e0f2da.chunk.js": "/static/js/1.30e0f2da.chunk.js",
   "static/js/1.30e0f2da.chunk.js.map": "/static/js/1.30e0f2da.chunk.js.map",
   "runtime~main.js": "/static/js/runtime~main.229c360f.js",
@@ -10,7 +10,7 @@
   "static/media/gradient-black.png": "/static/media/gradient-black.0815e194.png",
   "static/media/stardust.jpg": "/static/media/stardust.133a91c7.jpg",
   "static/media/resume.pdf": "/static/media/resume.db5f6062.pdf",
-  "static/media/logo-icon.svg": "/static/media/logo-icon.0eafd8ee.svg",
+  "static/media/logo-icon.svg": "/static/media/logo-icon.ca8b8e5c.svg",
   "static/media/gradient.png": "/static/media/gradient.f9cb0a4b.png",
   "static/media/highlights.png": "/static/media/highlights.9698b5f6.png",
   "static/media/front_1.png": "/static/media/front_1.7bdd1594.png",
@@ -39,9 +39,9 @@
   "static/media/album_7.jpg": "/static/media/album_7.095fd399.jpg",
   "static/media/album_8.png": "/static/media/album_8.d2ff0cd1.png",
   "static/media/album_9.jpg": "/static/media/album_9.d46517c6.jpg",
-  "static/media/index.sass": "/static/media/Brandon_light.4147f3fd.otf",
-  "static/css/main.95e2ce26.chunk.css.map": "/static/css/main.95e2ce26.chunk.css.map",
+  "static/media/index.sass": "/static/media/Poppins-Light.fcc40ae9.ttf",
+  "static/css/main.5fe10bcb.chunk.css.map": "/static/css/main.5fe10bcb.chunk.css.map",
   "index.html": "/index.html",
-  "precache-manifest.d3fe46783e9349dc7ed5f667239af690.js": "/precache-manifest.d3fe46783e9349dc7ed5f667239af690.js",
+  "precache-manifest.ee5a5ae72a8edd262a218fcee0a9c7d7.js": "/precache-manifest.ee5a5ae72a8edd262a218fcee0a9c7d7.js",
   "service-worker.js": "/service-worker.js"
 }

@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "e1dde78c2db071c16b2f",
-    "url": "/static/css/main.95e2ce26.chunk.css"
+    "revision": "78516e0768448f2ee221",
+    "url": "/static/css/main.5fe10bcb.chunk.css"
   },
   {
-    "revision": "e1dde78c2db071c16b2f",
-    "url": "/static/js/main.e1dde78c.chunk.js"
+    "revision": "78516e0768448f2ee221",
+    "url": "/static/js/main.78516e07.chunk.js"
   },
   {
     "revision": "30e0f2da27a55060b14a",
@@ -32,8 +32,8 @@ self.__precacheManifest = [
     "url": "/static/media/resume.db5f6062.pdf"
   },
   {
-    "revision": "0eafd8ee4ad8e21900c73f6bf967cbf7",
-    "url": "/static/media/logo-icon.0eafd8ee.svg"
+    "revision": "ca8b8e5c1fce0e7cf8ebbdb3fffc4c47",
+    "url": "/static/media/logo-icon.ca8b8e5c.svg"
   },
   {
     "revision": "f9cb0a4bc823e9969afa458d7dff65e0",
@@ -148,27 +148,27 @@ self.__precacheManifest = [
     "url": "/static/media/album_9.d46517c6.jpg"
   },
   {
-    "revision": "a989c5b7849027ec20bcf8e716f2387f",
-    "url": "/static/media/Brandon_med.a989c5b7.otf"
+    "revision": "093ee89be9ede30383f39a899c485a82",
+    "url": "/static/media/Poppins-Regular.093ee89b.ttf"
   },
   {
-    "revision": "c10f15f179ff812edfa4ab94cb5e7652",
-    "url": "/static/media/Brandon_blk.c10f15f1.otf"
+    "revision": "08c20a487911694291bd8c5de41315ad",
+    "url": "/static/media/Poppins-Bold.08c20a48.ttf"
   },
   {
-    "revision": "1f55925e52b9e71fd57108874184060d",
-    "url": "/static/media/Brandon_reg.1f55925e.otf"
+    "revision": "14d00dab1f6802e787183ecab5cce85e",
+    "url": "/static/media/Poppins-Black.14d00dab.ttf"
   },
   {
-    "revision": "fa11c3ca7b2301d6b8da51b04985fb05",
-    "url": "/static/media/Brandon_bld.fa11c3ca.otf"
+    "revision": "bf59c687bc6d3a70204d3944082c5cc0",
+    "url": "/static/media/Poppins-Medium.bf59c687.ttf"
   },
   {
-    "revision": "4147f3fd5f2e9b5eda890a67f4cd3f4f",
-    "url": "/static/media/Brandon_light.4147f3fd.otf"
+    "revision": "fcc40ae9a542d001971e53eaed948410",
+    "url": "/static/media/Poppins-Light.fcc40ae9.ttf"
   },
   {
-    "revision": "3f48ae34bca18ce79a014faa8d0086da",
+    "revision": "4658036a216fbf98de706e8b56cb1e84",
     "url": "/index.html"
   }
 ];
