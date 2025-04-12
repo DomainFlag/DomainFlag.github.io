@@ -168,7 +168,7 @@ self.__precacheManifest = [
     "url": "/static/media/Poppins-Light.fcc40ae9.ttf"
   },
   {
-    "revision": "4658036a216fbf98de706e8b56cb1e84",
+    "revision": "965163d0f8e29c94d0a21fd088874c4f",
     "url": "/index.html"
   }
 ];
